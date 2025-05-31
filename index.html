@@ -6,21 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilo.css">
     <link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <title>Dados Técnicos</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 
 </head>
 <body>
+
+    <div class="topo">
+        <h1>Aplicação para Cálculo de Engenharia</h1>
+    </div>
+
     <section id="secao">
         <div id="header">
-            <h1>Cálculo de peça e conjunto</h1>
-            <h4>* Preencha todos os campos solicitados *</h4>
+            <h2>Cálculo de peça e conjunto</h2>
+            <p>* Preencha todos os campos solicitados *</p>
         </div>
         <div id="caesa">
-            <label for="peca: "><strong>Nome da peça:</strong></label>
+            <label for="peca: ">Nome da peça:</label>
             <input type="text" name="peca" id="peca" oninput="this.value = this.value.toUpperCase()" required>
-            <label for="qtde"><strong>Quantidade:</strong></label>
+            <label for="qtde">Quantidade:</label>
             <input type="number" name="qtde" id="qtde" required>
 
             <!-- O evento oninput acima, converte tudo que for digitado na caixa de texto, para letras maiúsculas -->
@@ -63,31 +71,22 @@
         </div>
 
         <div id="calculado">
-            <h3>Estrutura</h3>
+            <h3>RESULTADO</h3>
             <p id="arquivo">
-                <!-- <h4>Cálculo do Conjunto</h4> -->
-                <!-- <input type="text" id="nomeArquivo" placeholder="Digite o nome do arquivo"> -->
+                
             </p>
             <ul id="lista-resultados"></ul>
-            <p id="soma-metroQuad"></p><br>            
-            <p id="soma-peso"></p><br>
-            <p id="soma-tinta"></p>
+            <p id="soma-metroQuad" class="valor"></p><br>            
+            <p id="soma-peso" class="valor"></p><br>
+            <p id="soma-tinta" class="valor"></p>
         </div>
 
     </section>
 
     <!--
-    <div id="lista">
-        <dl>
-            <dt>Base de Dados</dt>
-            <dd>Este é um pequeno software que faz a intermediação entre Projeto 3D e Solpen</dd>
-        </dl>
-    </div>
-    -->
-
     <div id="ia">
         <a href="https://gemini.google.com/app?utm_source=app_launcher&utm_medium=owned&utm_campaign=base_all" target="_blank">Gemini</a>
-    </div>
+    </div> -->
 
     <footer>
         <p>&copy; By Leandro Lopes</p>
@@ -329,6 +328,8 @@
             doc.save(pegaNomeArquivo || 'Relatório');
 
             botaoExportarPDF.disabled = true;
+            itemInput.disabled = true;
+            itemInput.value = "";
         }
 
         function reiniciar() {
