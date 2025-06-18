@@ -210,6 +210,18 @@ div#calculado > p {
 
 }
 
+#lista-resultados li:nth-of-type(even) {
+
+    background-color: #ebebeb;
+
+}
+
+#lista-resultados li:nth-of-type(odd) {
+
+    background-color: #c3c3c3;
+
+}
+
 div#calculado .valor {
 
     font-size: 14px;
@@ -297,30 +309,6 @@ div#limpar {
     text-align: center;
     margin: 10px 0px 0px 0px;
 }
-
-
-
-/*
-div#ia {
-
-    position: absolute;
-    bottom: 60px;
-    background-color: #29166F;
-    width: 100px;
-    margin: 10px auto;
-    border: 1px solid black;
-    border-radius: 5px;
-    text-align: center;
-    
-}
-
-div#ia > a {
-
-    color: white;
-    text-decoration: none;
-    cursor: pointer;
-}
-*/
 
 footer {
 
