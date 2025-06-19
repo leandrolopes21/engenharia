@@ -27,10 +27,14 @@
             <p>* Preencha todos os campos solicitados *</p>
         </div>
         <div id="caesa">
-            <label for="peca: ">Nome da peça:</label>
-            <input type="text" name="peca" id="peca" oninput="this.value = this.value.toUpperCase()" required>
-            <label for="qtde">Quantidade:</label>
-            <input type="number" name="qtde" id="qtde" required>
+            <div class="item">
+                <label for="peca: ">Nome da peça:</label>
+                <input type="text" name="peca" id="peca" oninput="this.value = this.value.toUpperCase()" required>
+            </div>
+            <div class="item">
+                <label for="qtde">Quantidade:</label>
+                <input type="number" name="qtde" id="qtde" required>
+            </div>
 
             <!-- O evento oninput acima, converte tudo que for digitado na caixa de texto, para letras maiúsculas -->
             <!-- this.value refere-se ao valor atual do texto digitado -->

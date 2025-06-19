@@ -71,13 +71,20 @@ div#header {
     
     /* border: 6px solid #F0A30A; */
     border-radius: 5px;
+
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+    justify-content: center;
 }
 
 div#header img {
 
+    /*
     position: absolute;
     top: 28px;
     left: 33px;
+    */
     width: 60px;
     height: 60px;
     border: 1.5px solid #384F70;
@@ -100,6 +107,24 @@ div#header > p {
 div#caesa {
 
     margin-top: 10px;
+
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+    flex: 0 1 600px;
+}
+
+.item {
+    width: 300px;
+
+    display: flex;
+    align-items: center;
+}
+
+.item label {
+    width: 130px;
+    text-align: center;
 }
 
 div#principal {
@@ -114,6 +139,7 @@ div#principal {
 
     display: flex;
     flex-flow: row wrap;
+    justify-content: center;
 }
 
 div#principal > p {
@@ -137,12 +163,11 @@ p#mater > label {
 
 div#dados {
 
-    width: 35%;
+    width: 265px;
     height: 119px;
 
     display: flex;
-    flex-flow: column wrap-reverse;
-
+    flex-flow: column nowrap;
     justify-content: center;
 
 }
@@ -154,13 +179,14 @@ div#dados > p {
 
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between
+    justify-content: space-between;
+    align-items: center;
 
 }
 
 div#sugestao {
 
-    width: 62%;
+    width: 469px;
     height: 119px;
     margin-left: 10px;
     border: 1px solid #000;
@@ -171,7 +197,6 @@ div#sugestao {
     background-color: #F0F8FF;
 
     display: flex;
-    flex-flow: column wrap-reverse;
 
     justify-content: center;
     align-items: center;
@@ -249,7 +274,7 @@ input[type=text] {
 
 input[type=number]#qtde {
 
-    width: 70px;
+    width: 150px;
     font-size: 13px;
     border-radius: 5px;
     text-align: center;
