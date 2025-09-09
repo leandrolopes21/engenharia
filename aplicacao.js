@@ -177,6 +177,7 @@ function criarInput() {
     itemInput.setAttribute('placeholder', 'Digite o nome do arquivo');
     itemInput.setAttribute('oninput', 'this.value = this.value.toUpperCase()');
     nomeArquivoDiv.appendChild(itemInput);
+    itemInput.focus();
 
     peca.value = "";
     qtde.value = "";

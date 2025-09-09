@@ -7,7 +7,11 @@
 
 body {
 
-    background-color: #d4d4d4;
+    /* background-color: #d4d4d4; */
+
+    background-image: url(imagem_fundo.png);
+    background-position: center;
+    background-size: cover;
 
     display: flex;
     justify-content: center;
