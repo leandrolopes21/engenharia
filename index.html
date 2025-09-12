@@ -17,12 +17,12 @@
 <body>
 
     <div class="topo">
-        <h1>Aplicação para Cálculo de Engenharia</h1>
+        <img src="LOGO LL.jpg" alt="Leandro Lopes">
+        <h1>Cálculo de Engenharia</h1>
     </div>
 
     <section id="secao">
-        <div id="header">
-            <img src="LOGO LL.jpg" alt="Leandro Lopes">
+        <div id="header">            
             <h2>Cálculo de peça e conjunto</h2>
             <p>* Preencha todos os campos solicitados *</p>
         </div>
@@ -52,6 +52,7 @@
                 <input type="radio" name="radmat" id="Inox" value="8.2">
                 <label for="Inox">Inox</label>
             </p>
+
             <div id="dados">
                 <p>Comprimento (mm):
                     <input type="number" name="num1" id="num1" required>
@@ -63,9 +64,15 @@
                     <input type="number" name="num3" id="num3" required>
                 </p>
             </div>
-            <div id="sugestao">
-                <!-- <a href="chapas.html" target="_blank">** Lista de chapas **</a> -->
+            <div class="conteiner-sugestao">
+                <div class="texto-sugestao">
+                    <h3>Sugestão de chapa</h3>
+                </div>
+                <div id="sugestao">
+                
+                </div>
             </div>
+
             <p id="botoes">
                 <input type="button" value="Calcular" id="bt1" onclick="verificarDados()">
                 <input type="button" value="Novo Dado" id="bt2" onclick="limpar()">
@@ -86,12 +93,7 @@
 
     </section>
 
-    <!--
-    <footer>
-        <p>&copy; By Leandro Lopes</p>
-    </footer>
-    -->
-
     <script src="aplicacao.js"></script>
+    <!-- <script src="abrir.js"></script> script para abrir janela em tamanho predeterminado -->
 </body>
 </html>
