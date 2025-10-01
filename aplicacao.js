@@ -67,6 +67,9 @@ function verificarMaterial() {
     } else if (material[3].checked) {
         densidade = 8.2;
         calcular();
+    } else if (material[4].checked) {
+        densidade = 8.2;
+        calcular();
     } else {
         alert("Escolha o material!")
     }
@@ -139,7 +142,7 @@ function listaChapas() {
 }
 */
 
-const chapas = [
+const chapas = [ // variável declarada como array de objetos
     // Aço Carbono
     { material: 'Aco', espessura: 1.20, codigo: '8010130002', descricao: 'CHAPA FF 1,20X1500X3000MM' },
     { material: 'Aco', espessura: 1.50, codigo: '8010130006', descricao: 'CHAPA FF 1,50X1500X3000MM' },
@@ -163,14 +166,23 @@ const chapas = [
     { material: 'Galvanizado', espessura: 2.70, codigo: '8010150011', descricao: 'CHAPA GALV CRISTAIS NORMAIS 2,70X1500X3000MM' },
   
     // Inox 304
-    { material: 'Inox', espessura: 1.00, codigo: '8011110016', descricao: 'CHAPA INOX 304 1,00X1250X2000MM' },
-    { material: 'Inox', espessura: 1.20, codigo: '8011110014', descricao: 'CHAPA INOX 304 1,20X1200X3000MM' },
-    { material: 'Inox', espessura: 1.50, codigo: '8011110017', descricao: 'CHAPA INOX 304 1,50X1250X3000MM' },
-    { material: 'Inox', espessura: 2.00, codigo: '8011110018', descricao: 'CHAPA INOX 304 2,00X1250X3000MM' },
-    { material: 'Inox', espessura: 2.50, codigo: '8011110006', descricao: 'CHAPA INOX 304 2,50X1200X3000MM' },
-    { material: 'Inox', espessura: 3.00, codigo: '8011110023', descricao: 'CHAPA INOX 304 3,00X1500X3000MM' }
+    { material: 'Inox304', espessura: 1.00, codigo: '8011110016', descricao: 'CHAPA INOX 304 1,00X1250X2000MM' },
+    { material: 'Inox304', espessura: 1.20, codigo: '8011110014', descricao: 'CHAPA INOX 304 1,20X1200X3000MM' },
+    { material: 'Inox304', espessura: 1.50, codigo: '8011110017', descricao: 'CHAPA INOX 304 1,50X1250X3000MM' },
+    { material: 'Inox304', espessura: 2.00, codigo: '8011110018', descricao: 'CHAPA INOX 304 2,00X1250X3000MM' },
+    { material: 'Inox304', espessura: 2.50, codigo: '8011110006', descricao: 'CHAPA INOX 304 2,50X1200X3000MM' },
+    { material: 'Inox304', espessura: 3.00, codigo: '8011110023', descricao: 'CHAPA INOX 304 3,00X1500X3000MM' },
+
+    // Inox 430
+    { material: 'Inox430', espessura: 1.00, codigo: '8011150016', descricao: 'CHAPA INOX 430 PVC 1,00X1000X2000MM' },
+    { material: 'Inox430', espessura: 1.20, codigo: '8011150001', descricao: 'CHAPA INOX 430 PVC 1,20X1250X3000MM' },
+    { material: 'Inox430', espessura: 1.50, codigo: '8011150013', descricao: 'CHAPA INOX 430 PVC 1,50X1200X3000MM' },
+    { material: 'Inox430', espessura: 2.00, codigo: '8011150019', descricao: 'CHAPA INOX 430 PVC 2,00X1250X3000MM' },
+    { material: 'Inox430', espessura: 2.50, codigo: '8011150009', descricao: 'CHAPA INOX 430 PVC 2,50X1200X3000MM' },
+    { material: 'Inox430', espessura: 3.00, codigo: '8011150000', descricao: 'CHAPA INOX 430 PVC 3,00X1200X3000MM' }
   ];
 
+  /* Desabilitada temporariamente
   function sugerirChapas() {
     const materialSelecionado = document.querySelector('input[name="radmat"]:checked').id;
     const espessuraDigitada = Number(num3.value); // num3 já está declarado globalmente
@@ -192,6 +204,58 @@ const chapas = [
       divSug.innerHTML = resultadoHTML;
     } else {
       // Se não encontrou, exibe uma mensagem
+      divSug.innerHTML = 'Nenhuma chapa encontrada com a espessura e material selecionados.';
+    }
+  }
+  */
+
+  function sugerirChapas() {
+    const materialSelecionado = document.querySelector('input[name="radmat"]:checked').id;
+    const espessuraDigitada = Number(num3.value);
+  
+    const chapasSugeridas = chapas.filter(chapa =>
+      chapa.material === materialSelecionado && chapa.espessura === espessuraDigitada
+    );
+  
+    divSug.innerHTML = '';
+  
+    if (chapasSugeridas.length > 0) {
+      chapasSugeridas.forEach(chapa => {
+        // Cria um elemento div para cada resultado
+        const resultadoDiv = document.createElement('div');
+        resultadoDiv.className = 'divDinamica';
+        
+        /* Espaço reservado a criação dinâmica de resposta das chapas */
+  
+        // Cria o botão de copiar
+        const botaoCopiar = document.createElement('button');
+        botaoCopiar.textContent = 'Copiar';
+        botaoCopiar.className = 'btn-copiar'; // Adiciona uma classe para estilização, se quiser
+        botaoCopiar.setAttribute('data-codigo', chapa.codigo); // Armazena o código no botão
+        
+        // Adiciona um evento de clique ao botão
+        botaoCopiar.addEventListener('click', () => {
+          // Usa a API Clipboard para copiar o texto
+          navigator.clipboard.writeText(chapa.codigo).then(() => {
+            console.log(`Código ${chapa.codigo} copiado com sucesso!`);
+            alert(`Código ${chapa.codigo} copiado para a área de transferência!`);
+          }).catch(err => {
+            console.error('Erro ao copiar o texto: ', err);
+            alert('Não foi possível copiar o texto. Tente novamente.');
+          });
+        });
+  
+        // Adiciona o botão à div do resultado
+        resultadoDiv.appendChild(botaoCopiar);
+
+        // Adiciona o texto da chapa
+        const textoChapa = document.createTextNode(`${chapa.codigo} - ${chapa.descricao}`);
+        resultadoDiv.appendChild(textoChapa);
+  
+        // Adiciona a div completa à divSug
+        divSug.appendChild(resultadoDiv);
+      });
+    } else {
       divSug.innerHTML = 'Nenhuma chapa encontrada com a espessura e material selecionados.';
     }
   }
