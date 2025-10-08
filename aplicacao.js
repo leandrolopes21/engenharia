@@ -142,7 +142,7 @@ function listaChapas() {
 }
 */
 
-const chapas = [ // declarado como array de objetos
+const chapas = [ // declarado como array de objetos (coleção de objetos)
     // Aço Carbono
     { material: 'Aco', espessura: 1.20, codigo: '8010130002', descricao: 'CHAPA FF 1,20X1500X3000MM' },
     { material: 'Aco', espessura: 1.50, codigo: '8010130006', descricao: 'CHAPA FF 1,50X1500X3000MM' },
