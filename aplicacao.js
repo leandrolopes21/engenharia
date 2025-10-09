@@ -125,22 +125,10 @@ function desabilitarCampos() { // É chamada pela função calcular()
     }
 }
 
-/* Função lista chapas desabilitada e substiuída por um array de objetos
-function listaChapas() {
-            
-    if (material[0].checked) {
-        divSug.innerHTML = '8010130002 - CHAPA FF 1,20X1500X3000MM <br> 8010130006 - CHAPA FF 1,50X1500X3000MM <br> 8010130007 - CHAPA FF 1,90X1500X2220MM <br> 8010110001 - CHAPA DCO 2,65X1500X2220MM <br> 8010110003 - CHAPA DCO 3,00X1500X3000MM';
-    } else if (material[1].checked) {
-        divSug.innerHTML = '8012100023 - CHAPA ALUMINIO 0,50X1250X3000MM H14 <br> 8012100003 - CHAPA ALUMINIO 2,00X1250X3000MM H14 <br> 8012100004 - CHAPA ALUMINIO 2,50X1250X3000MM H14 <br> 8012100025 - CHAPA ALUMINIO 3,00X1500X3000MM H14 <br> 8012100006 - CHAPA ALUMINIO 4,00X1250X3000MM H14';
-    } else if (material[2].checked) {
-        divSug.innerHTML = '8010150021 - CHAPA GALV CRISTAIS NORMAIS 0,65X1500X3000MM <br> 8010150017 - CHAPA GALV CRISTAIS NORMAIS 0,95X1250X2000MM <br> 8010150002 - CHAPA GALV CRISTAIS NORMAIS 1,25X1200X3000MM <br> 8010150025 - CHAPA GALV CRISTAIS NORMAIS 1,55X1500X3000MM <br> 8010150013 - CHAPA GALV CRISTAIS NORMAIS 1,95X1500X3000MM <br> 8010150011 - CHAPA GALV CRISTAIS NORMAIS 2,70X1500X3000MM';
-    } else if (material[3].checked) {
-        divSug.innerHTML = '8011110016 - CHAPA INOX 304 1,00X1250X2000MM <br> 8011110014 - CHAPA INOX 304 1,20X1200X3000MM <br> 8011110017 - CHAPA INOX 304 1,50X1250X3000MM <br> 8011110018 - CHAPA INOX 304 2,00X1250X3000MM <br> 8011110006 - CHAPA INOX 304 2,50X1200X3000MM <br> 8011110023 - CHAPA INOX 304 3,00X1500X3000MM';
-    } else {
-        'Sem dados para exibir!';
-    }
-}
-*/
+const tintas = [ // Declarado como array de objetos (coleção de objetos)
+    { codigo: '8110110013', descricao: 'Tinta Munsel N6.5'},
+    { codigo: '8110100008', descricao: 'Tinta RAL 7032'}
+]
 
 const chapas = [ // declarado como array de objetos (coleção de objetos)
     // Aço Carbono
