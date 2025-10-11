@@ -125,11 +125,6 @@ function desabilitarCampos() { // É chamada pela função calcular()
     }
 }
 
-const tintas = [ // Declarado como array de objetos (coleção de objetos)
-    { codigo: '8110110013', descricao: 'Tinta Munsel N6.5'},
-    { codigo: '8110100008', descricao: 'Tinta RAL 7032'}
-]
-
 const chapas = [ // declarado como array de objetos (coleção de objetos)
     // Aço Carbono
     { material: 'Aco', espessura: 1.20, codigo: '8010130002', descricao: 'CHAPA FF 1,20X1500X3000MM' },
