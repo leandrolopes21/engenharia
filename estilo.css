@@ -31,15 +31,14 @@ body {
 
 body::before {
     content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    /* Fixado na viewport para sempre cobrir a área visível durante o scroll */
+    position: fixed;
+    inset: 0; /* top:0; right:0; bottom:0; left:0; */
     background-image: url(imagem_fundo.png);
     background-position: center;
     background-size: cover;
     opacity: 0.5;
+    z-index: -1; /* mantém atrás do conteúdo */
 }
 
 .topo {
