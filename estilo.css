@@ -23,7 +23,9 @@ body {
     /* background-color: #d4d4d4; */
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 
 }
 
@@ -222,13 +224,13 @@ div#dados > p {
 
 div#sugestao {
 
-    width: 95%;
+    width: 100%;
     height: 60px;
     margin: 0 auto;
     border: 1px solid var(--cor_preto);
     border-radius: 5px;
     font-family: 'Tahoma';
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 600;
     background-color: var(--cor_fundo_sugestao);
 
@@ -237,6 +239,33 @@ div#sugestao {
     justify-content: center;
     align-items: center;
 
+}
+
+.divDinamica {
+
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+}
+
+.btn-copiar {
+
+    width: 55px;
+    margin-right: 20px;
+    font-family: 'Tahoma';
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: var(--cor_botao);
+}
+
+.btn-copiar:hover {
+
+    background-color: var(--cor_preto);
+    color: var(--cor_branco);
+    font-size: 14px;
 }
 
 div#calculado {
@@ -374,4 +403,8 @@ div#limpar {
     width: 80%;
     text-align: center;
     margin: 10px 0px 0px 0px;
+}
+
+.rodape {
+    padding: 20px;
 }
