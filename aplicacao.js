@@ -183,7 +183,8 @@ const chapas = [ // declarado como array de objetos (coleção de objetos)
     { material: 'Aco', espessura: 1.90, codigo: '8010130007', descricao: 'CHAPA FF 1,90X1500X2220MM' },
     { material: 'Aco', espessura: 2.65, codigo: '8010110001', descricao: 'CHAPA DCO 2,65X1500X2220MM' },
     { material: 'Aco', espessura: 3.00, codigo: '8010110003', descricao: 'CHAPA DCO 3,00X1500X3000MM' },
-    
+    { material: 'Aco', espessura: 6.35, codigo: '8010100005', descricao: 'CHAPA GROSSA 6,30X1200X3000MM'},
+
     // Alumínio
     { material: 'Aluminio', espessura: 0.50, codigo: '8012100023', descricao: 'CHAPA ALUMINIO 0,50X1250X3000MM H14' },
     { material: 'Aluminio', espessura: 2.00, codigo: '8012100003', descricao: 'CHAPA ALUMINIO 2,00X1250X3000MM H14' },
@@ -200,38 +201,21 @@ const chapas = [ // declarado como array de objetos (coleção de objetos)
     { material: 'Galvanizado', espessura: 2.70, codigo: '8010150011', descricao: 'CHAPA GALV CRISTAIS NORMAIS 2,70X1500X3000MM' },
 
     // Inox 304
-    { material: 'Inox', espessura: 1.00, codigo: '8011110016', descricao: 'CHAPA INOX 304 1,00X1250X2000MM' },
-    { material: 'Inox', espessura: 1.20, codigo: '8011110014', descricao: 'CHAPA INOX 304 1,20X1200X3000MM' },
-    { material: 'Inox', espessura: 1.50, codigo: '8011110017', descricao: 'CHAPA INOX 304 1,50X1250X3000MM' },
-    { material: 'Inox', espessura: 2.00, codigo: '8011110018', descricao: 'CHAPA INOX 304 2,00X1250X3000MM' },
-    { material: 'Inox', espessura: 2.50, codigo: '8011110006', descricao: 'CHAPA INOX 304 2,50X1200X3000MM' },
-    { material: 'Inox', espessura: 3.00, codigo: '8011110023', descricao: 'CHAPA INOX 304 3,00X1500X3000MM' }
-  ];
+    { material: 'Inox304', espessura: 1.00, codigo: '8011110016', descricao: 'CHAPA INOX 304 1,00X1250X2000MM' },
+    { material: 'Inox304', espessura: 1.20, codigo: '8011110014', descricao: 'CHAPA INOX 304 1,20X1200X3000MM' },
+    { material: 'Inox304', espessura: 1.50, codigo: '8011110017', descricao: 'CHAPA INOX 304 1,50X1250X3000MM' },
+    { material: 'Inox304', espessura: 2.00, codigo: '8011110018', descricao: 'CHAPA INOX 304 2,00X1250X3000MM' },
+    { material: 'Inox304', espessura: 2.50, codigo: '8011110006', descricao: 'CHAPA INOX 304 2,50X1200X3000MM' },
+    { material: 'Inox304', espessura: 3.00, codigo: '8011110023', descricao: 'CHAPA INOX 304 3,00X1500X3000MM' },
 
-  function sugerirChapas() {
-    const materialSelecionado = document.querySelector('input[name="radmat"]:checked').id;
-    const espessuraDigitada = Number(num3.value); // num3 já está declarado globalmente
-  
-    // Filtra o array de chapas
-    const chapasSugeridas = chapas.filter(chapa =>
-      chapa.material === materialSelecionado && chapa.espessura === espessuraDigitada
-    );
-  
-    // Limpa a div de sugestão antes de adicionar novos resultados
-    divSug.innerHTML = '';
-  
-    if (chapasSugeridas.length > 0) {
-      // Se encontrou chapas, exibe-as
-      let resultadoHTML = '';
-      chapasSugeridas.forEach(chapa => {
-        resultadoHTML += `${chapa.codigo} - ${chapa.descricao} <br>`;
-      });
-      divSug.innerHTML = resultadoHTML;
-    } else {
-      // Se não encontrou, exibe uma mensagem
-      divSug.innerHTML = 'Nenhuma chapa encontrada com a espessura e material selecionados.';
-    }
-  }
+    // Inox 430
+    { material: 'Inox430', espessura: 1.00, codigo: '8011150016', descricao: 'CHAPA INOX 430 PVC 1,00X1000X2000MM' },
+    { material: 'Inox430', espessura: 1.20, codigo: '8011150001', descricao: 'CHAPA INOX 430 PVC 1,20X1250X3000MM' },
+    { material: 'Inox430', espessura: 1.50, codigo: '8011150013', descricao: 'CHAPA INOX 430 PVC 1,50X1200X3000MM' },
+    { material: 'Inox430', espessura: 2.00, codigo: '8011150019', descricao: 'CHAPA INOX 430 PVC 2,00X1250X3000MM' },
+    { material: 'Inox430', espessura: 2.50, codigo: '8011150009', descricao: 'CHAPA INOX 430 PVC 2,50X1200X3000MM' },
+    { material: 'Inox430', espessura: 3.00, codigo: '8011150000', descricao: 'CHAPA INOX 430 PVC 3,00X1200X3000MM' }
+];
 
 function limpar() { // É chamada ao clicar no botão Limpar Dados
 
