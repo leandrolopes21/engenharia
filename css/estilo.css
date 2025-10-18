@@ -34,7 +34,7 @@ body::before {
     /* Fixado na viewport para sempre cobrir a área visível durante o scroll */
     position: fixed;
     inset: 0; /* top:0; right:0; bottom:0; left:0; */
-    background-image: url(imagem_fundo.png);
+    background-image: url(../imagens/imagem_fundo.png);
     background-position: center;
     background-size: cover;
     opacity: 0.5;

@@ -4,30 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de chapas</title>
-    <style>
-        h1 {
-            font-family: Verdana, sans-serif;
-            font-size: 20px;
-            text-align: left;
-        }
-        ul {
-            font-family: Verdana, sans-serif;
-            font-size: 12px;
-        }
-        span {
-            font-weight: 600;
-        }
-    </style>
+    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="shortcut icon" href="favicon/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>Dados Técnicos</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
 </head>
 <body>
-    <h1>Lista de chapas Solpen</h1>
-    <ul id="listaChapas">
-        <li><span>8010130001</span> - Chapa FF 1,20 1200 x 3000</li>
-        <li><span>8010130003</span> - Chapa FF 1,50 1500 x 2220</li>
-        <li><span>8010130007</span> - Chapa FF 1,90 1500 x 2220</li>
-        <li><span>8010110001</span> - Chapa DCO 2,65 1500 x 2220</li>
-        <li><span>8010110003</span> - Chapa DCO 3,00 1500 x 3000</li>
-    </ul>
+
+    <div class="topo">
+        <img id="img-logo" src="logos/LOGO LL.jpg" alt="Leandro Lopes">
+        <h1>Cálculo de Engenharia</h1>
+    </div>
+
+    <section id="secao">
+        <div id="header">            
+            <h2>Lista de chapas cadastradas</h2>
+        </div>
+        
+        <button id="btnChapas">Mostrar chapas</button>
+
+        <div id="principal">
+            <!-- Apresenta a lista de chapas -->
+        </div>
+
+    </section>
+
+    <footer class="rodape">
+        <p>&copy; LEANDRO LOPES 2025 - Todos os direitos reservados</p>
+    </footer>
+
+    <script src="javascript/lista_chapas.js"></script>
+    
 </body>
 </html>
