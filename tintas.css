@@ -1,0 +1,132 @@
+/* Arquivo: tintas.css
+   Contém os estilos do card de tintas separados do estilo principal.
+   Este arquivo replica o bloco que foi removido de `estilo.css`.
+*/
+
+/* INÍCIO: Estilos do card de tintas */
+#secao-tintas {
+    /* Aplicando visual idêntico ao card principal */
+    background-color: var(--cor_fundo_cinza);
+    border-radius: 15px; /* igual ao section principal */
+    border: 3px solid; /* igual ao section principal */
+    box-shadow: 0px 0px 10px 3px var(--cor_box_shadow); /* mesma sombra */
+    padding: 8px;
+    width: 320px;
+}
+
+/* Cabeçalho azul do card de tintas, similar a div#header */
+#secao-tintas .texto-sugestao {
+    background-color: var(--cor_fundo_azul);
+    color: var(--cor_branco);
+    width: 100%;
+    height: 60px;
+    margin: 6px 0 10px 0;
+    padding: 6px 8px;
+    text-align: center;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#secao-tintas .texto-sugestao h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+#lista-tintas {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0;
+    max-height: 260px;
+    overflow: auto;
+}
+
+#lista-tintas > li {
+    padding: 10px 12px;
+    border-radius: 8px;
+    background-color: var(--cor_branco);
+    border: 1px solid #d0d0d0;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    gap: 10px;
+}
+
+#lista-tintas > li .info-tinta {
+    display: flex;
+    flex-direction: column;
+}
+
+#lista-tintas > li .info-tinta .nome {
+    font-weight: 700;
+}
+
+#lista-tintas > li .info-tinta .codigo {
+    font-size: 12px;
+    color: #666;
+}
+
+#lista-tintas > li.tinta-selecionada {
+    background-color: #E9F6FD;
+    box-shadow: inset 0 0 0 2px var(--cor_fundo_azul);
+}
+
+.form-tinta {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.form-tinta input[type="text"] {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #999;
+    font-size: 13px;
+}
+
+.form-tinta button {
+    padding: 6px 10px;
+    border-radius: 6px;
+    background-color: var(--cor_botao);
+    cursor: pointer;
+    border: 1px solid #8b8b8b;
+}
+
+.form-tinta button:hover {
+    background-color: var(--cor_preto);
+    color: var(--cor_branco);
+}
+
+/* Estilização dos botões dentro da lista de tintas */
+#lista-tintas button {
+    padding: 6px 8px;
+    border-radius: 6px;
+    background-color: var(--cor_botao);
+    border: 1px solid #9a9a9a;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+#lista-tintas button:hover {
+    background-color: var(--cor_preto);
+    color: var(--cor_branco);
+}
+
+/* Mensagem quando a lista estiver vazia */
+#tintas:empty::before, #lista-tintas:empty::before {
+    content: 'Nenhuma tinta cadastrada.';
+    display: block;
+    color: #333;
+    padding: 12px;
+    text-align: center;
+    font-style: italic;
+}
+
+/* FIM: Estilos do card de tintas */
