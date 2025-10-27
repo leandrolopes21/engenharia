@@ -21,85 +21,89 @@
         <h1>Cálculo de Engenharia</h1>
     </div>
 
-    <section id="secao">
-        <div id="header">            
-            <h2>Cálculo de peça e conjunto</h2>
-            <p>* Preencha todos os campos solicitados *</p>
-        </div>
-        <div id="caesa">
-            <div class="item">
-                <label for="peca: ">Nome da peça:</label>
-                <input type="text" name="peca" id="peca" oninput="this.value = this.value.toUpperCase()" required>
+    <main id="estrutura_principal">
+        <section id="secao">
+            <div id="header">
+                <h2>Cálculo de peça e conjunto</h2>
+                <p>* Preencha todos os campos solicitados *</p>
             </div>
-            <div class="item">
-                <label for="qtde">Quantidade:</label>
-                <input type="number" name="qtde" id="qtde" required>
-            </div>
-
-            <!-- O evento oninput acima, converte tudo que for digitado na caixa de texto, para letras maiúsculas -->
-            <!-- this.value refere-se ao valor atual do texto digitado -->
-
-        </div>
-        <div id="principal">
-            <h3>Características Técnicas</h3>
-            <p id="mater">
-                <input type="radio" name="radmat" id="Aco" value="8">
-                <label for="Aco">Aço Carbono |</label>
-                <input type="radio" name="radmat" id="Aluminio" value="2.7">
-                <label for="Aluminio">Alumínio |</label>
-                <input type="radio" name="radmat" id="Galvanizado" value="8.1">
-                <label for="Galvanizado">Galvanizado |</label>
-                <input type="radio" name="radmat" id="Inox304" value="8.2">
-                <label for="Inox304">Inox 304 |</label>
-                <input type="radio" name="radmat" id="Inox430" value="8.2">
-                <label for="Inox430">Inox 430</label>
-            </p>
-
-            <div id="dados">
-                <p>Comprimento (mm):
-                    <input type="number" name="num1" id="num1" required>
-                </p>
-                <p>Largura (mm):
-                    <input type="number" name="num2" id="num2" required>
-                </p>
-                <p>Espessura (mm):
-                    <input type="number" name="num3" id="num3" required>
-                </p>
-            </div>
-            <div class="conteiner-sugestao">
-                <div class="texto-sugestao">
-                    <h3>Sugestão de chapa</h3>
+            <div id="caesa">
+                <div class="item">
+                    <label for="peca: ">Nome da peça:</label>
+                    <input type="text" name="peca" id="peca" oninput="this.value = this.value.toUpperCase()" required>
                 </div>
-                <div id="sugestao">
-                
+                <div class="item">
+                    <label for="qtde">Quantidade:</label>
+                    <input type="number" name="qtde" id="qtde" required>
                 </div>
+                <!-- O evento oninput acima, converte tudo que for digitado na caixa de texto, para letras maiúsculas -->
+                <!-- this.value refere-se ao valor atual do texto digitado -->
             </div>
+            <div id="principal">
+                <h3>Características Técnicas</h3>
+                <p id="mater">
+                    <input type="radio" name="radmat" id="Aco" value="8">
+                    <label for="Aco">Aço Carbono |</label>
+                    <input type="radio" name="radmat" id="Aluminio" value="2.7">
+                    <label for="Aluminio">Alumínio |</label>
+                    <input type="radio" name="radmat" id="Galvanizado" value="8.1">
+                    <label for="Galvanizado">Galvanizado |</label>
+                    <input type="radio" name="radmat" id="Inox304" value="8.2">
+                    <label for="Inox304">Inox 304 |</label>
+                    <input type="radio" name="radmat" id="Inox430" value="8.2">
+                    <label for="Inox430">Inox 430</label>
+                </p>
+                <div id="dados">
+                    <p>Comprimento (mm):
+                        <input type="number" name="num1" id="num1" required>
+                    </p>
+                    <p>Largura (mm):
+                        <input type="number" name="num2" id="num2" required>
+                    </p>
+                    <p>Espessura (mm):
+                        <input type="number" name="num3" id="num3" required>
+                    </p>
+                </div>
+                <div class="conteiner-sugestao">
+                    <div class="texto-sugestao">
+                        <h3>Sugestão de chapa para empenho no Solpen</h3>
+                    </div>
+                    <div id="sugestao">
+        
+                    </div>
+                    <div id="listas_chapa_tinta">
+                        <input type="button" value="Lista de chapas" id="lista_chapa_caesa" onclick="criarNovaSectionChapa()">
+                        <input type="button" value="Lista de tintas" id="lista_tinta_caesa" onclick="criarNovaSectionTinta()">
+                        <input type="button" value="Reset Listas" id="reset_listas" onclick="resetListas()">
+                    </div>
+                </div>
+                <p id="botoes">
+                    <input type="button" value="Calcular" id="bt1" onclick="verificarDados()">
+                    <input type="button" value="Novo Dado" id="bt2" onclick="limpar()">
+                    <input type="button" value="Finalizar Dados" id="btFinal" onclick="criarInput()">
+                    <input type="button" value="Exportar PDF" id="btExportar" onclick="exportarPDF()">
+                    <input type="button" value="Reiniciar Aplicação" id="btReiniciar" onclick="reiniciar()">
+                </p>
+            </div>
+            <div id="calculado">
+                <h3>RESULTADO</h3>
+                <p id="arquivo"><!-- Aqui a função cria uma input que recebe o nome do arquivo a ser salvo em pdf --></p>
+                <ul id="lista-resultados"></ul>
+                <p id="soma-metroQuad" class="valor"></p><br>
+                <p id="soma-peso" class="valor"></p><br>
+                <p id="soma-tinta" class="valor"></p>
+            </div>
+        </section>
 
-            <p id="botoes">
-                <input type="button" value="Calcular" id="bt1" onclick="verificarDados()">
-                <input type="button" value="Novo Dado" id="bt2" onclick="limpar()">
-                <input type="button" value="Finalizar Dados" id="btFinal" onclick="criarInput()">
-                <input type="button" value="Exportar PDF" id="btExportar" onclick="exportarPDF()">
-                <input type="button" value="Reiniciar Aplicação" id="btReiniciar" onclick="reiniciar()">
-            </p>
-        </div>
-
-        <div id="calculado">
-            <h3>RESULTADO</h3>
-            <p id="arquivo"><!-- Aqui a função cria uma input que recebe o nome do arquivo a ser salvo em pdf --></p>
-            <ul id="lista-resultados"></ul>
-            <p id="soma-metroQuad" class="valor"></p><br>            
-            <p id="soma-peso" class="valor"></p><br>
-            <p id="soma-tinta" class="valor"></p>
-        </div>
-
-    </section>
+        <!-- Espaço reservado para criação dinâmica de um section contendo a lista de chapas e/ou tintas -->
+        
+    </main>
 
     <footer class="rodape">
         <p>&copy; LEANDRO LOPES 2025 - Todos os direitos reservados</p>
     </footer>
 
     <script src="javascript/aplicacao.js"></script>
-    <!-- <script src="abrir.js"></script> script para abrir janela em tamanho predeterminado -->
+    
 </body>
 </html>

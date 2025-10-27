@@ -74,11 +74,56 @@ body::before {
     text-shadow: 0px 0px 10px var(--cor_preto);
 }
 
-section {
+#estrutura_principal {
+
+    display: flex;
+    flex-direction: row;
+    
+}
+
+#secao {
 
     background-color: var(--cor_fundo_cinza);
     border-radius: 15px;
     width: 850px;
+    margin-top: 125px;
+    padding: 5px;
+    border: 3px solid;
+    box-shadow: 0px 0px 10px 3px var(--cor_box_shadow);
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+
+    z-index: 1;
+
+}
+
+#secao_chapas {
+
+    background-color: var(--cor_fundo_cinza);
+    border-radius: 15px;
+    width: 650px;
+    height: 550px;
+    margin-top: 125px;
+    padding: 5px;
+    border: 3px solid;
+    box-shadow: 0px 0px 10px 3px var(--cor_box_shadow);
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+
+    z-index: 1;
+
+}
+
+#secao_tintas {
+
+    background-color: var(--cor_fundo_cinza);
+    border-radius: 15px;
+    width: 550px;
+    height: 550px;
     margin-top: 125px;
     padding: 5px;
     border: 3px solid;
@@ -168,6 +213,37 @@ div#principal > p {
     text-align: center;
 }
 
+div#principal_secao_chapas,
+div#principal_secao_tintas {
+
+    background-color: var(--cor_branco);
+    width: 95%;
+    height: 75%;
+    overflow: auto;
+    margin: 10px 5px;
+    padding: 0px 5px;
+    font-size: 11px;
+    
+    border: 1px solid var(--cor_preto);
+    border-radius: 5px;
+
+}
+
+div#principal_secao_chapas table,
+div#principal_secao_tintas table {
+
+    margin: 0 auto;
+    padding: 5px;
+}
+
+div#principal_secao_chapas table thead tr th,
+div#principal_secao_chapas table tbody tr td,
+div#principal_secao_tintas table thead tr th,
+div#principal_secao_tintas table tbody tr td {
+
+    text-align: center;
+}
+
 p#mater {
     
     display: flex;
@@ -216,7 +292,7 @@ div#dados > p {
 .texto-sugestao {
 
     width: 100%;
-    height: 40px;
+    height: 30px;
     padding: 5px 0;
     margin: 0 auto;
 }
@@ -224,7 +300,7 @@ div#dados > p {
 div#sugestao {
 
     width: 100%;
-    height: 60px;
+    height: 35px;
     margin: 0 auto;
     border: 1px solid var(--cor_preto);
     border-radius: 5px;
@@ -236,6 +312,22 @@ div#sugestao {
     display: flex;
 
     justify-content: center;
+    align-items: center;
+
+}
+
+div#listas_chapa_tinta {
+
+    width: 100%;
+    height: 30px;
+    margin: 0 auto;
+    font-family: 'Tahoma';
+    font-size: 11px;
+    font-weight: 600;
+
+    display: flex;
+
+    justify-content: space-evenly;
     align-items: center;
 
 }
