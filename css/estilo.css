@@ -241,7 +241,19 @@ div#principal_secao_chapas table tbody tr td,
 div#principal_secao_tintas table thead tr th,
 div#principal_secao_tintas table tbody tr td {
 
-    text-align: center;
+    text-align: left;
+}
+
+div#principal_secao_chapas table tbody tr:nth-of-type(even),
+div#principal_secao_tintas table tbody tr:nth-of-type(even) {
+
+    background-color: var(--cor_resposta_par);
+}
+
+div#principal_secao_chapas table tbody tr:nth-of-type(odd),
+div#principal_secao_tintas table tbody tr:nth-of-type(odd) {
+
+    background-color: var(--cor_resposta_impar);
 }
 
 p#mater {

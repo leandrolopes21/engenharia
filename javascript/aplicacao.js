@@ -290,6 +290,19 @@ const tintas = [ // Coleção de objetos
     { codigo: '8110110068', descricao: 'TINTA VERMELHO TEXTURIZADO RAL 3001 (PTG012) FLEXTINTAS'} // Índice 49
 ];
 
+function copiarCodigoTinta(texto) {
+
+    navigator.clipboard.writeText(texto).then(() => {
+
+        alert(`Código "${texto}" copiado para área de transferência"`);
+    })
+    .catch(err => {
+
+        console.error('Falha ao copiar o código: ', err);
+        alert('Não foi possível copiar o código.');
+    });
+}
+
 // Criando uma section dinâmica para lista de tintas
 function criarNovaSectionTinta() {
 
@@ -320,16 +333,32 @@ function criarNovaSectionTinta() {
         <tr>
             <th>Código</th>
             <th>Descrição</th>
-        </th>
+        </tr>
     `;
 
     // Preenche as linhas da tabela com os dados do array 'tintas'
     tintas.forEach(tinta => {
-        const linha = document.createElement('tr');
-        linha.innerHTML = `            
+        const linha = document.createElement('tr'); // Cria tr para linha
+        const tdCodigo = document.createElement('td'); // Cria td para célula
+        tdCodigo.textContent = tinta.codigo;
+        tdCodigo.style.cursor = 'pointer'; // Adiciona efeito de mãozinha
+        tdCodigo.title = 'Clique para copiar o código'; // Dica ao passar o mouse
+        tdCodigo.addEventListener('click', () => {
+            // Chama a função de copiar passando o código da tinta
+            copiarCodigoTinta(tinta.codigo);
+        });
+        // Cria a célula para descrição
+        const tdDescricao = document.createElement('td'); // Cria td para célula
+        tdDescricao.textContent = tinta.descricao;
+        // Adiciona as duas céluas a linha
+        linha.appendChild(tdCodigo)
+        linha.appendChild(tdDescricao);
+        /*
+        linha.innerHTML = `
             <td>${tinta.codigo}</td>
             <td>${tinta.descricao}</td>
         `;
+        */
         tbody.appendChild(linha);
     });
 
@@ -600,7 +629,13 @@ function removerinput() {
 
 function resetListas() {
 
-    if (novaSection && novaSection.parentNode === estruturaPrincipal) {
-        estruturaPrincipal.removeChild(novaSection);
-    }
+    // 1. Encontra a seção específica pelo ID
+    const removerSectionChapa = document.getElementById('secao_chapas');
+    const removerSectionTinta = document.getElementById('secao_tintas');
+
+    removerSectionChapa.parentNode.removeChild(removerSectionChapa);
+    removerSectionTinta.parentNode.removeChild(removerSectionTinta);
+
+    botaoChapas.disabled = false;
+    botaoTintas.disabled = false;
 }
