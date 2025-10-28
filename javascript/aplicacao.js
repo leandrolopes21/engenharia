@@ -628,14 +628,26 @@ function removerinput() {
 }
 
 function resetListas() {
-
-    // 1. Encontra a seção específica pelo ID
+    // Encontra as sections (podem não existir) e remove com segurança
     const removerSectionChapa = document.getElementById('secao_chapas');
     const removerSectionTinta = document.getElementById('secao_tintas');
 
-    removerSectionChapa.parentNode.removeChild(removerSectionChapa);
-    removerSectionTinta.parentNode.removeChild(removerSectionTinta);
+    if (removerSectionChapa && removerSectionChapa.parentNode) {
+        removerSectionChapa.parentNode.removeChild(removerSectionChapa);
+    } else {
+        // opcional: log para depuração quando não existir
+        // console.warn('secao_chapas não encontrada ao tentar resetar listas');
+    }
 
+    if (removerSectionTinta && removerSectionTinta.parentNode) {
+        removerSectionTinta.parentNode.removeChild(removerSectionTinta);
+    } else {
+        // opcional: log para depuração quando não existir
+        // console.warn('secao_tintas não encontrada ao tentar resetar listas');
+    }
+
+    // Reativa os botões que criam as listas e desativa o botão de reset
     botaoChapas.disabled = false;
     botaoTintas.disabled = false;
+    botaoResetListas.disabled = true;
 }

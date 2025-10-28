@@ -74,10 +74,14 @@ body::before {
     text-shadow: 0px 0px 10px var(--cor_preto);
 }
 
-#estrutura_principal {
+#estrutura_principal { /* referente ao main */
+
+    width: 1280px;
 
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     
 }
 
@@ -85,7 +89,7 @@ body::before {
 
     background-color: var(--cor_fundo_cinza);
     border-radius: 15px;
-    width: 850px;
+    width: 900px;
     margin-top: 125px;
     padding: 5px;
     border: 3px solid;
@@ -99,32 +103,14 @@ body::before {
 
 }
 
-#secao_chapas {
+#secao_chapas, #secao_tintas {
 
     background-color: var(--cor_fundo_cinza);
     border-radius: 15px;
-    width: 650px;
+    width: 450px;
+    max-width: 900px;
     height: 550px;
-    margin-top: 125px;
-    padding: 5px;
-    border: 3px solid;
-    box-shadow: 0px 0px 10px 3px var(--cor_box_shadow);
-
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-
-    z-index: 1;
-
-}
-
-#secao_tintas {
-
-    background-color: var(--cor_fundo_cinza);
-    border-radius: 15px;
-    width: 550px;
-    height: 550px;
-    margin-top: 125px;
+    margin-top: 25px;
     padding: 5px;
     border: 3px solid;
     box-shadow: 0px 0px 10px 3px var(--cor_box_shadow);
@@ -222,7 +208,7 @@ div#principal_secao_tintas {
     overflow: auto;
     margin: 10px 5px;
     padding: 0px 5px;
-    font-size: 11px;
+    font-size: 10px;
     
     border: 1px solid var(--cor_preto);
     border-radius: 5px;
