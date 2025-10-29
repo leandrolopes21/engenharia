@@ -205,8 +205,6 @@ function criarNovaSectionChapa() {
     // Cria o cabeçalho da tabela
     thead.innerHTML = `
         <tr>
-            <th>Material</th>
-            <th>Espessura (mm)</th>
             <th>Código</th>
             <th>Descrição</th>
         </th>
@@ -214,13 +212,22 @@ function criarNovaSectionChapa() {
 
     // Preenche as linhas da tabela com os dados do array 'chapas'
     chapas.forEach(chapa => {
-        const linha = document.createElement('tr');
-        linha.innerHTML = `
-            <td>${chapa.material}</td>
-            <td>${chapa.espessura.toFixed(2)}</td>
-            <td>${chapa.codigo}</td>
-            <td>${chapa.descricao}</td>
-        `;
+        const linha = document.createElement('tr'); // Cria tr para linha
+        const tdCodigoChapa = document.createElement('td'); // Cria td para célula
+        tdCodigoChapa.textContent = chapa.codigo;
+        tdCodigoChapa.style.cursor = 'pointer'; // Adiciona efeito de mãozinha
+        tdCodigoChapa.style.color = 'blue'; // Cor azul para indicar que é clicável
+        tdCodigoChapa.title = 'Clique para copiar o código'; // Dica ao passar o mouse
+        tdCodigoChapa.addEventListener('click', () => {
+            // Chama a função de copiar passando o código da chapa
+            copiarCodigoTintaChapa(chapa.codigo);
+        });
+        const tdDescricaoChapa = document.createElement('td'); // Cria td para célula
+        tdDescricaoChapa.textContent = chapa.descricao;
+        // Adiciona as duas céluas a linha
+        linha.appendChild(tdCodigoChapa);
+        linha.appendChild(tdDescricaoChapa);
+        // Adiciona a linha ao corpo da tabela
         tbody.appendChild(linha);
     });
 
@@ -308,7 +315,8 @@ const tintas = [ // Coleção de objetos
     { codigo: '8110110068', descricao: 'TINTA VERMELHO TEXTURIZADO RAL 3001 (PTG012) FLEXTINTAS'} // Índice 67
 ];
 
-function copiarCodigoTinta(texto) {
+// Function para copiar código da tinta e da chapa
+function copiarCodigoTintaChapa(texto) {
 
     navigator.clipboard.writeText(texto).then(() => {
 
@@ -357,26 +365,22 @@ function criarNovaSectionTinta() {
     // Preenche as linhas da tabela com os dados do array 'tintas'
     tintas.forEach(tinta => {
         const linha = document.createElement('tr'); // Cria tr para linha
-        const tdCodigo = document.createElement('td'); // Cria td para célula
-        tdCodigo.textContent = tinta.codigo;
-        tdCodigo.style.cursor = 'pointer'; // Adiciona efeito de mãozinha
-        tdCodigo.title = 'Clique para copiar o código'; // Dica ao passar o mouse
-        tdCodigo.addEventListener('click', () => {
+        const tdCodigoTinta = document.createElement('td'); // Cria td para célula
+        tdCodigoTinta.textContent = tinta.codigo;
+        tdCodigoTinta.style.cursor = 'pointer'; // Adiciona efeito de mãozinha
+        tdCodigoTinta.style.color = 'blue'; // Cor azul para indicar que é clicável
+        tdCodigoTinta.title = 'Clique para copiar o código'; // Dica ao passar o mouse
+        tdCodigoTinta.addEventListener('click', () => {
             // Chama a função de copiar passando o código da tinta
-            copiarCodigoTinta(tinta.codigo);
+            copiarCodigoTintaChapa(tinta.codigo);
         });
         // Cria a célula para descrição
-        const tdDescricao = document.createElement('td'); // Cria td para célula
-        tdDescricao.textContent = tinta.descricao;
+        const tdDescricaoTinta = document.createElement('td'); // Cria td para célula
+        tdDescricaoTinta.textContent = tinta.descricao;
         // Adiciona as duas céluas a linha
-        linha.appendChild(tdCodigo)
-        linha.appendChild(tdDescricao);
-        /*
-        linha.innerHTML = `
-            <td>${tinta.codigo}</td>
-            <td>${tinta.descricao}</td>
-        `;
-        */
+        linha.appendChild(tdCodigoTinta)
+        linha.appendChild(tdDescricaoTinta);
+        // Adiciona a linha ao corpo da tabela
         tbody.appendChild(linha);
     });
 
