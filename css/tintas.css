@@ -2,38 +2,129 @@
    Contém os estilos do card de tintas separados do estilo principal.
    Este arquivo replica o bloco que foi removido de `estilo.css`.
 */
-
-/* INÍCIO: Estilos do card de tintas */
-#secao-tintas {
-    /* Aplicando visual idêntico ao card principal */
-    background-color: var(--cor_fundo_cinza);
-    border-radius: 15px; /* igual ao section principal */
-    border: 3px solid; /* igual ao section principal */
-    box-shadow: 0px 0px 10px 3px var(--cor_box_shadow); /* mesma sombra */
-    padding: 8px;
-    width: 320px;
+:root {
+    /* Cores */
+    --cor_fundo_azul: #384F70;
+    --cor_fundo_cinza: #A2A2A2;
+    --cor_fundo_sugestao: #A7D8DB;
+    --cor_box_shadow: #3C3C3C;
+    --cor_resposta_par: #EBEBED;
+    --cor_resposta_impar: #C3C3C3;
+    --cor_branco: #FFF;
+    --cor_preto: #000;
+    --cor_botao: #D4D4D4;
 }
 
-/* Cabeçalho azul do card de tintas, similar a div#header */
-#secao-tintas .texto-sugestao {
-    background-color: var(--cor_fundo_azul);
-    color: var(--cor_branco);
-    width: 100%;
-    height: 60px;
-    margin: 6px 0 10px 0;
-    padding: 6px 8px;
-    text-align: center;
-    border-radius: 5px;
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+
+    /* background-color: #d4d4d4; */
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 
-#secao-tintas .texto-sugestao h2 {
-    font-size: 18px;
-    margin: 0;
+body::before {
+    content: "";
+    /* Fixado na viewport para sempre cobrir a área visível durante o scroll */
+    position: fixed;
+    inset: 0; /* top:0; right:0; bottom:0; left:0; */
+    background-image: url(../imagens/imagem_fundo.png);
+    background-position: center;
+    background-size: cover;
+    opacity: 0.5;
+    z-index: -1; /* mantém atrás do conteúdo */
+}
+
+.topo {
+    
+    position: fixed;
+    top: 0;
+    background-color: var(--cor_fundo_azul);
+    color: var(--cor_branco);
+    width: 100%;
+    height: 100px;
+    padding: 35px 0px;
+    text-align: center;
+    z-index: 100;
+}
+
+.topo img {
+
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    width: 60px;
+    height: 60px;
+    border: 1.5px solid var(--cor_fundo_azul);
+    border-radius: 3px;
+}
+
+.topo h1 {
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    font-size: 26px;
+    text-shadow: 0px 0px 10px var(--cor_preto);
+}
+
+/* INÍCIO: Estilos do card de tintas */
+#tintas {
+
+    background-color: var(--cor_fundo_cinza);
+    border-radius: 15px;
+    width: 900px;
+    margin-top: 125px;
+    padding: 5px;
+    border: 3px solid;
+    box-shadow: 0px 0px 10px 3px var(--cor_box_shadow);
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+
+    z-index: 1;
+
+}
+
+div#header {
+
+    background-color: var(--cor_fundo_azul);
+    color: var(--cor_branco);
+    width: 95%;
+    height: 76px;
+    margin: 15px 5px 5px 5px;
+    padding: 5px 5px;
+    text-align: center;
+    border-radius: 5px;
+
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+div#header > h2 {
+
+    width: auto;
+    margin: 5px;
+    font-size: 20px;
+    text-align: center;
+}
+
+div#header > p {
+
+    font-size: 13px;
 }
 
 #lista-tintas {
@@ -127,6 +218,10 @@
     padding: 12px;
     text-align: center;
     font-style: italic;
+}
+
+.rodape {
+    padding: 20px;
 }
 
 /* FIM: Estilos do card de tintas */

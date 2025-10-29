@@ -6,177 +6,166 @@
 */
 
 (function(window){
-
-    // Referências do DOM (serão nulas até a seção HTML existir)
-    let btnAddTinta = null;
-    let btnEditarTinta = null;
-    let btnLimparTintas = null;
-    let listaTintasUL = null;
-
-    // Estado local
-    let listaTintas = [];
+    const STORAGE_KEY = 'listaTintas';
+    const elements = {
+        btnAdd: null,
+        btnEdit: null,
+        btnClear: null,
+        list: null
+    };
+    
+    let tintas = [];
     let tintaSelecionadaIndex = -1;
 
-    function initElementRefs(){
-        btnAddTinta = document.getElementById('bt-add-tinta');
-        btnEditarTinta = document.getElementById('bt-editar-tinta');
-        btnLimparTintas = document.getElementById('bt-limpar-tintas');
-        listaTintasUL = document.getElementById('lista-tintas');
-
-        if (btnAddTinta) btnAddTinta.addEventListener('click', abrirFormularioAdicionar);
-        if (btnLimparTintas) btnLimparTintas.addEventListener('click', limparTintas);
-        if (btnEditarTinta) btnEditarTinta.addEventListener('click', editarTintaSelecionada);
-    }
-
-    function initTintas(){
-        initElementRefs();
+    const loadFromStorage = () => {
         try {
-            const raw = localStorage.getItem('listaTintas');
-            if (raw) listaTintas = JSON.parse(raw) || [];
+            return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
         } catch (e) {
-            console.error('Erro ao ler listaTintas do localStorage', e);
-            listaTintas = [];
+            console.error('Erro ao ler tintas do localStorage:', e);
+            return [];
         }
-        atualizarUITintas();
-        if (btnAddTinta) btnAddTinta.disabled = false;
-        if (btnLimparTintas) btnLimparTintas.disabled = listaTintas.length === 0;
-    }
+    };
 
-    function salvarTintas(){
-        try {
-            localStorage.setItem('listaTintas', JSON.stringify(listaTintas));
-        } catch(e) {
-            console.error('Erro ao salvar listaTintas no localStorage', e);
-        }
-    }
-
-    function atualizarUITintas(){
-        if (!listaTintasUL) return;
-        listaTintasUL.innerHTML = '';
-        listaTintas.forEach((tinta, idx) => {
-            const li = document.createElement('li');
-            li.setAttribute('data-idx', idx);
-
-            const info = document.createElement('div');
-            info.className = 'info-tinta';
-
-            const nomeEl = document.createElement('span');
-            nomeEl.className = 'nome';
-            nomeEl.textContent = tinta.nome;
-
-            const codigoEl = document.createElement('span');
-            codigoEl.className = 'codigo';
-            codigoEl.textContent = tinta.codigo ? `Código: ${tinta.codigo}` : '';
-
-            info.appendChild(nomeEl);
-            info.appendChild(codigoEl);
-
-            const btns = document.createElement('div');
-            btns.style.display = 'flex';
-            btns.style.gap = '6px';
-
-            const btnSel = document.createElement('button');
-            btnSel.className = 'btn-selecionar-tinta';
-            btnSel.textContent = 'Selecionar';
-            btnSel.addEventListener('click', () => selecionarTinta(idx));
-
-            const btnRem = document.createElement('button');
-            btnRem.className = 'btn-remover-tinta';
-            btnRem.textContent = 'Remover';
-            btnRem.addEventListener('click', () => removerTinta(idx));
-
-            btns.appendChild(btnSel);
-            btns.appendChild(btnRem);
-
-            li.appendChild(info);
-            li.appendChild(btns);
-            listaTintasUL.appendChild(li);
+    const initElements = () => {
+        Object.assign(elements, {
+            btnAdd: document.getElementById('bt-add-tinta'),
+            btnEdit: document.getElementById('bt-editar-tinta'),
+            btnClear: document.getElementById('bt-limpar-tintas'),
+            list: document.getElementById('lista-tintas')
         });
+
+        elements.btnAdd?.addEventListener('click', abrirFormularioAdicionar);
+        elements.btnClear?.addEventListener('click', limparTintas);
+        elements.btnEdit?.addEventListener('click', editarTintaSelecionada);
+    };
+
+    function initTintas() {
+        initElements();
+        tintas = loadFromStorage();
+        atualizarUITintas();
+        elements.btnAdd.disabled = false;
+        elements.btnClear.disabled = !tintas.length;
     }
 
-    function selecionarTinta(idx){
+    const salvarTintas = () => {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(tintas));
+        } catch(e) {
+            console.error('Erro ao salvar tintas no localStorage:', e);
+        }
+    };
+
+    const criarBotao = (texto, classe, onClick) => {
+        const btn = document.createElement('button');
+        btn.textContent = texto;
+        btn.className = classe;
+        btn.addEventListener('click', onClick);
+        return btn;
+    };
+
+    function atualizarUITintas() {
+        if (!elements.list) return;
+        
+        elements.list.innerHTML = tintas.map((tinta, idx) => `
+            <li data-idx="${idx}">
+                <div class="info-tinta">
+                    <span class="nome">${tinta.nome}</span>
+                    <span class="codigo">${tinta.codigo ? `Código: ${tinta.codigo}` : ''}</span>
+                </div>
+                <div style="display: flex; gap: 6px">
+                    <button class="btn-selecionar-tinta" onclick="TintasModule.selecionar(${idx})">Selecionar</button>
+                    <button class="btn-remover-tinta" onclick="TintasModule.remover(${idx})">Remover</button>
+                </div>
+            </li>
+        `).join('');
+    }
+
+    const selecionarTinta = (idx) => {
         tintaSelecionadaIndex = idx;
-        const lis = listaTintasUL.querySelectorAll('li');
-        lis.forEach(li => li.classList.remove('tinta-selecionada'));
-        const selecionado = listaTintasUL.querySelector(`li[data-idx="${idx}"]`);
-        if (selecionado) selecionado.classList.add('tinta-selecionada');
-        if (btnEditarTinta) btnEditarTinta.disabled = false;
-    }
+        elements.list.querySelectorAll('li').forEach(li => li.classList.remove('tinta-selecionada'));
+        elements.list.querySelector(`li[data-idx="${idx}"]`)?.classList.add('tinta-selecionada');
+        elements.btnEdit.disabled = false;
+    };
 
-    function removerTinta(idx){
-        if (idx < 0 || idx >= listaTintas.length) return;
-        listaTintas.splice(idx, 1);
+    const removerTinta = (idx) => {
+        if (idx < 0 || idx >= tintas.length) return;
+        tintas.splice(idx, 1);
         salvarTintas();
         atualizarUITintas();
-        if (btnLimparTintas) btnLimparTintas.disabled = listaTintas.length === 0;
-    }
+        elements.btnClear.disabled = !tintas.length;
+    };
 
-    function limparTintas(){
+    const limparTintas = () => {
         if (!confirm('Remover todas as tintas?')) return;
-        listaTintas = [];
+        tintas = [];
         salvarTintas();
         atualizarUITintas();
-        if (btnLimparTintas) btnLimparTintas.disabled = true;
-    }
+        elements.btnClear.disabled = true;
+    };
 
-    function abrirFormularioAdicionar(){
+    const abrirFormularioAdicionar = () => {
         const container = document.getElementById('tintas');
         if (!container) return;
+
+        container.querySelector('.form-tinta')?.remove();
+        
         const form = document.createElement('div');
         form.className = 'form-tinta';
+        form.innerHTML = `
+            <input type="text" placeholder="Nome da tinta" id="input-nome">
+            <input type="text" placeholder="Código (opcional)" id="input-codigo">
+        `;
 
-        const inputNome = document.createElement('input');
-        inputNome.type = 'text';
-        inputNome.placeholder = 'Nome da tinta';
-
-        const inputCodigo = document.createElement('input');
-        inputCodigo.type = 'text';
-        inputCodigo.placeholder = 'Código (opcional)';
-
-        const btnSalvar = document.createElement('button');
-        btnSalvar.textContent = 'Salvar';
-        btnSalvar.addEventListener('click', () => {
-            const nome = inputNome.value.trim();
-            const codigo = inputCodigo.value.trim();
-            if (!nome) { alert('Informe o nome da tinta'); return; }
-            listaTintas.push({ nome, codigo });
+        const salvar = () => {
+            const nome = form.querySelector('#input-nome').value.trim();
+            const codigo = form.querySelector('#input-codigo').value.trim();
+            
+            if (!nome) {
+                alert('Informe o nome da tinta');
+                return;
+            }
+            
+            tintas.push({ nome, codigo });
             salvarTintas();
             atualizarUITintas();
-            if (btnLimparTintas) btnLimparTintas.disabled = false;
+            elements.btnClear.disabled = false;
             form.remove();
-        });
+        };
 
-        const btnCancelar = document.createElement('button');
-        btnCancelar.textContent = 'Cancelar';
-        btnCancelar.addEventListener('click', () => form.remove());
+        form.appendChild(criarBotao('Salvar', 'btn-salvar', salvar));
+        form.appendChild(criarBotao('Cancelar', 'btn-cancelar', () => form.remove()));
 
-        form.appendChild(inputNome);
-        form.appendChild(inputCodigo);
-        form.appendChild(btnSalvar);
-        form.appendChild(btnCancelar);
-
-        const existente = container.querySelector('.form-tinta');
-        if (existente) existente.remove();
         container.appendChild(form);
-        inputNome.focus();
-    }
+        form.querySelector('#input-nome').focus();
+    };
 
-    function editarTintaSelecionada(){
-        if (tintaSelecionadaIndex === -1) return alert('Selecione uma tinta primeiro');
-        const tinta = listaTintas[tintaSelecionadaIndex];
-        const novoNome = prompt('Editar nome da tinta', tinta.nome);
-        if (novoNome === null) return; // cancel
-        const novoCodigo = prompt('Editar código da tinta', tinta.codigo || '');
-        if (novoNome.trim() === '') return alert('Nome inválido');
-        listaTintas[tintaSelecionadaIndex] = { nome: novoNome.trim(), codigo: (novoCodigo || '').trim() };
+    const editarTintaSelecionada = () => {
+        if (tintaSelecionadaIndex === -1) {
+            alert('Selecione uma tinta primeiro');
+            return;
+        }
+
+        const tinta = tintas[tintaSelecionadaIndex];
+        const novoNome = prompt('Editar nome da tinta', tinta.nome)?.trim();
+        
+        if (!novoNome) return;
+        
+        const novoCodigo = prompt('Editar código da tinta', tinta.codigo || '')?.trim() || '';
+        tintas[tintaSelecionadaIndex] = { nome: novoNome, codigo: novoCodigo };
         salvarTintas();
         atualizarUITintas();
-    }
+    };
 
-    // Exporta API mínima
+    // Exporta API pública
     window.TintasModule = {
         init: initTintas,
-        add: function(nome,codigo){ listaTintas.push({nome,codigo}); salvarTintas(); atualizarUITintas(); }
+        add: (nome, codigo) => {
+            tintas.push({ nome, codigo });
+            salvarTintas();
+            atualizarUITintas();
+        },
+        selecionar: selecionarTinta,
+        remover: removerTinta
     };
 
 })(window);
