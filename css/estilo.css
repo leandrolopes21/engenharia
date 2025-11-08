@@ -74,6 +74,26 @@ body::before {
     text-shadow: 0px 0px 10px var(--cor_preto);
 }
 
+#data {
+
+    position: absolute;
+    width: 250px;
+    top: 20px;
+    right: 30px;
+    
+    text-shadow: 0px 0px 10px var(--cor_preto);
+}
+
+#data h2 {
+
+    font-size: 16px;
+}
+
+#espaco_data_sistema {
+
+    font-size: 15px;
+}
+
 #estrutura_principal { /* referente ao main */
 
     width: 1280px;

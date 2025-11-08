@@ -1,3 +1,4 @@
+let dataAtual = document.getElementById('espaco_data_sistema');
 var chapa = document.getElementById('chapa');
 var peca = document.getElementById('peca');
 var qtde = document.getElementById('qtde');
@@ -47,6 +48,9 @@ inputsC.forEach((input, index) => {
         }
     });
 });
+
+let hoje = new Date();
+dataAtual.innerHTML = `${hoje}`;
 
 function verificarDados() { // É chamada ao clicar no botão Calcular
 
