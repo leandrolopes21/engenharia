@@ -50,7 +50,7 @@ inputsC.forEach((input, index) => {
 });
 
 let hoje = new Date();
-dataAtual.innerHTML = `${hoje}`;
+dataAtual.innerHTML = `${hoje.toUTCString()}`;
 
 function verificarDados() { // É chamada ao clicar no botão Calcular
 
