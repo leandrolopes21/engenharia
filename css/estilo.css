@@ -78,20 +78,20 @@ body::before {
 
     position: absolute;
     width: 180px;
-    top: 20px;
-    right: 30px;
+    top: 30px;
+    right: 20px;
     
     text-shadow: 0px 0px 10px var(--cor_preto);
 }
 
 #data h2 {
 
-    font-size: 13px;
+    font-size: 15px;
 }
 
 #espaco_data_sistema {
 
-    font-size: 10px;
+    font-size: 12px;
 }
 
 #estrutura_principal { /* referente ao main */

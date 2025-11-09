@@ -50,7 +50,7 @@ inputsC.forEach((input, index) => {
 });
 
 let hoje = new Date();
-dataAtual.innerHTML = `${hoje.toUTCString()}`;
+dataAtual.innerHTML = `${hoje.toLocaleString()}`;
 
 function verificarDados() { // É chamada ao clicar no botão Calcular
 
@@ -570,6 +570,14 @@ function exportarPDF() {
     const larguraTextoCab = doc.getTextWidth(cab);
     const posicaoXCab = (larguraPagina - larguraTextoCab) / 2; // Centraliza o texto
     doc.text(cab, posicaoXCab, margemSuperior - 2);
+
+    // Insere data e hora
+    let date_hour = new Date();
+    doc.setFontSize(12); // Tamanho da fonte para data
+    doc.setFont('Poppins', 'bold'); // Fonte em negrito
+    const larguraDataTextoFixo = doc.getTextWidth(date_hour);
+    const posicaoXData = (larguraPagina - margemDireita - 40); 
+    doc.text(date_hour.toLocaleString(), posicaoXData, margemSuperior - 10); // Insere a data a direita na página
 
     // Informações resumidas
     doc.setFontSize(14); // Tamanho da fonte para o resumo
