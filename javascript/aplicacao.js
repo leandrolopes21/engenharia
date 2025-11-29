@@ -50,9 +50,9 @@ inputsC.forEach((input, index) => {
 });
 
 const options = {
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
+    // hour: '2-digit',
+    // minute: '2-digit',
+    // second: '2-digit',
     weekday: 'long',
     month: "numeric",
     year: 'numeric',
@@ -60,7 +60,7 @@ const options = {
 };
 
 let hoje = new Date();
-dataAtual.innerHTML = `${hoje.toLocaleString('pt-BR', options)};`;
+dataAtual.innerHTML = `${hoje.toLocaleString('pt-BR', options)}`;
 
 function verificarDados() { // É chamada ao clicar no botão Calcular
 
