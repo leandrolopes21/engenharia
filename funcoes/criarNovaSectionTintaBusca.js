@@ -36,6 +36,10 @@ function criarNovaSectionTinta() {
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
 
+    // Adiciona o cabeçalho e o corpo a tabela
+    tabela.appendChild(thead);
+    tabela.appendChild(tbody);
+
     // Cria o cabeçalho da tabela
     thead.innerHTML = `
         <tr>
@@ -44,31 +48,42 @@ function criarNovaSectionTinta() {
         </tr>
     `;
 
-    // Preenche as linhas da tabela com os dados do array 'tintas'
-    tintas.forEach(tinta => {
-        const linha = document.createElement('tr'); // Cria tr para linha
-        const tdCodigoTinta = document.createElement('td'); // Cria td para célula
-        tdCodigoTinta.textContent = tinta.codigo;
-        tdCodigoTinta.style.cursor = 'pointer'; // Adiciona efeito de mãozinha
-        tdCodigoTinta.style.color = 'blue'; // Cor azul para indicar que é clicável
-        tdCodigoTinta.title = 'Clique para copiar o código'; // Dica ao passar o mouse
-        tdCodigoTinta.addEventListener('click', () => {
-            // Chama a função de copiar passando o código da tinta
-            copiarCodigoTintaChapa(tinta.codigo);
+    // Função para renderizar as linhas da tabela
+    function renderizarLinhas(dados) {
+        tbody.innerHTML = ''; // Limpa as linhas existentes
+        dados.forEach(tinta => {
+            const linha = document.createElement('tr'); // Cria tr para linha
+            const tdCodigoTinta = document.createElement('td'); // Cria td para célula
+            tdCodigoTinta.textContent = tinta.codigo;
+            tdCodigoTinta.style.cursor = 'pointer'; // Adiciona efeito de mãozinha
+            tdCodigoTinta.style.color = 'blue'; // Cor azul para indicar que é clicável
+            tdCodigoTinta.title = 'Clique para copiar o código'; // Dica ao passar o mouse
+            tdCodigoTinta.addEventListener('click', () => {
+                // Chama a função de copiar passando o código da tinta
+                copiarCodigoTintaChapa(tinta.codigo);
+            });
+            // Cria a célula para descrição
+            const tdDescricaoTinta = document.createElement('td'); // Cria td para célula
+            tdDescricaoTinta.textContent = tinta.descricao;
+            // Adiciona as duas céluas a linha
+            linha.appendChild(tdCodigoTinta)
+            linha.appendChild(tdDescricaoTinta);
+            // Adiciona a linha ao corpo da tabela
+            tbody.appendChild(linha);
         });
-        // Cria a célula para descrição
-        const tdDescricaoTinta = document.createElement('td'); // Cria td para célula
-        tdDescricaoTinta.textContent = tinta.descricao;
-        // Adiciona as duas céluas a linha
-        linha.appendChild(tdCodigoTinta)
-        linha.appendChild(tdDescricaoTinta);
-        // Adiciona a linha ao corpo da tabela
-        tbody.appendChild(linha);
-    });
+    }
 
-    // Adiciona o cabeçalho e o corpo a tabela
-    tabela.appendChild(thead);
-    tabela.appendChild(tbody);
+    // Renderiza a tabela inicial com todas as tintas
+    renderizarLinhas(tintas);
+
+    // Adiciona o evento de clique ao botão de busca
+    botaoBuscar.addEventListener('click', () => {
+        const termoBusca = busca.value.toUpperCase();
+        const tintasFiltradas = tintas.filter(tinta => 
+            tinta.descricao.toUpperCase().includes(termoBusca)
+        );
+        renderizarLinhas(tintasFiltradas);
+    });
 
     // Adiciona a tabela completa à div 'principal'
     conteiner1.appendChild(tabela);

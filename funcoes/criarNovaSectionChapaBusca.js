@@ -36,6 +36,10 @@ function criarNovaSectionChapa() {
     const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
 
+    // Adiciona o cabeçalho e o corpo a tabela
+    tabela.appendChild(thead);
+    tabela.appendChild(tbody);
+
     // Cria o cabeçalho da tabela
     thead.innerHTML = `
         <tr>
@@ -43,31 +47,41 @@ function criarNovaSectionChapa() {
             <th>Descrição</th>
         </th>
     `;
-
-    // Preenche as linhas da tabela com os dados do array 'chapas'
-    chapas.forEach(chapa => {
-        const linha = document.createElement('tr'); // Cria tr para linha
-        const tdCodigoChapa = document.createElement('td'); // Cria td para célula
-        tdCodigoChapa.textContent = chapa.codigo;
-        tdCodigoChapa.style.cursor = 'pointer'; // Adiciona efeito de mãozinha
-        tdCodigoChapa.style.color = 'blue'; // Cor azul para indicar que é clicável
-        tdCodigoChapa.title = 'Clique para copiar o código'; // Dica ao passar o mouse
-        tdCodigoChapa.addEventListener('click', () => {
-            // Chama a função de copiar passando o código da chapa
-            copiarCodigoTintaChapa(chapa.codigo);
+    
+    // Função para renderizar as linhas da tabela
+    function renderizarLinhas(dados) {
+        tbody.innerHTML = ''; // Limpa as linhas existentes
+        dados.forEach(chapa => {
+            const linha = document.createElement('tr'); // Cria tr para linha
+            const tdCodigoChapa = document.createElement('td'); // Cria td para célula
+            tdCodigoChapa.textContent = chapa.codigo;
+            tdCodigoChapa.style.cursor = 'pointer'; // Adiciona efeito de mãozinha
+            tdCodigoChapa.style.color = 'blue'; // Cor azul para indicar que é clicável
+            tdCodigoChapa.title = 'Clique para copiar o código'; // Dica ao passar o mouse
+            tdCodigoChapa.addEventListener('click', () => {
+                // Chama a função de copiar passando o código da chapa
+                copiarCodigoTintaChapa(chapa.codigo);
+            });
+            // Cria a célula para descrição
+            const tdDescricaoChapa = document.createElement('td'); // Cria td para célula
+            tdDescricaoChapa.textContent = chapa.descricao;
+            // Adiciona as duas células a linha
+            linha.appendChild(tdCodigoChapa);
+            linha.appendChild(tdDescricaoChapa);
+            // Adiciona a linha ao corpo da tabela
+            tbody.appendChild(linha);
         });
-        const tdDescricaoChapa = document.createElement('td'); // Cria td para célula
-        tdDescricaoChapa.textContent = chapa.descricao;
-        // Adiciona as duas céluas a linha
-        linha.appendChild(tdCodigoChapa);
-        linha.appendChild(tdDescricaoChapa);
-        // Adiciona a linha ao corpo da tabela
-        tbody.appendChild(linha);
-    });
+    }
 
-    // Adiciona o cabeçalho e o corpo a tabela
-    tabela.appendChild(thead);
-    tabela.appendChild(tbody);
+    // Renderiza a tabela inicial com todas as chapas
+    renderizarLinhas(chapas);
+
+    // Adiciona o evento de clique ao botão de busca
+    botaoBuscar.addEventListener('click', () => {
+        const termoBusca = busca.value.toUpperCase();
+        const chapasFiltradas = chapa.filter(chapa => chapa.descricao.toUpperCase().includes(termoBusca));
+        renderizarLinhas(chapasFiltradas);
+    });
 
     // Adiciona a tabela completa à div 'principal'
     conteiner1.appendChild(tabela);

@@ -172,6 +172,24 @@ div#header > p {
     font-size: 13px;
 }
 
+div#headerTintas,
+div#headerChapas {
+
+    background-color: var(--cor_fundo_azul);
+    color: var(--cor_branco);
+    width: 95%;
+    height: 76px;
+    margin: 15px 5px 5px 5px;
+    padding: 5px 5px;
+    text-align: center;
+    border-radius: 5px;
+
+    display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: space-evenly;
+}
+
 div#caesa {
 
     margin-top: 10px;
@@ -377,6 +395,18 @@ div#listas_chapa_tinta {
     font-size: 14px;
 }
 
+#btn-buscar {
+
+    width: 100px;
+    margin-right: 20px;
+    font-family: 'Tahoma';
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: var(--cor_botao);
+}
+
 div#calculado {
 
     background-color: var(--cor_branco);
@@ -441,6 +471,14 @@ label {
 input[type=text] {
 
     width: 150px;
+    font-size: 13px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+input[type=text]#campo-busca {
+
+    width: 250px;
     font-size: 13px;
     border-radius: 5px;
     text-align: center;
