@@ -21,6 +21,11 @@ function criarNovaSectionChapa() {
     botaoBuscar.setAttribute('type', 'submit');
     botaoBuscar.setAttribute('id', 'btn-buscar');
 
+    const botaoLimpaBusca = document.createElement('button'); // Inserir este elemento dentro da div com id=headerChapas
+    botaoLimpaBusca.textContent = 'Limpar';
+    botaoLimpaBusca.setAttribute('type', 'submit');
+    botaoLimpaBusca.setAttribute('id', 'btn-limpa-busca');
+
     const conteiner1 = document.createElement('div'); // Inserir este elemento dentro da section com id=secao_chapas
     conteiner1.setAttribute('id', 'principal_secao_chapas');
 
@@ -29,6 +34,7 @@ function criarNovaSectionChapa() {
     conteiner.appendChild(titulo);
     conteiner.appendChild(busca);
     conteiner.appendChild(botaoBuscar);
+    conteiner.appendChild(botaoLimpaBusca);
     estruturaPrincipal.appendChild(novaSection);
 
     // Criando a tabela
@@ -79,8 +85,15 @@ function criarNovaSectionChapa() {
     // Adiciona o evento de clique ao botão de busca
     botaoBuscar.addEventListener('click', () => {
         const termoBusca = busca.value.toUpperCase();
-        const chapasFiltradas = chapa.filter(chapa => chapa.descricao.toUpperCase().includes(termoBusca));
-        renderizarLinhas(chapasFiltradas);
+        const chapasFiltradas = chapas.filter(chapa =>
+            chapa.descricao.toUpperCase().includes(termoBusca)
+        );
+        renderizarLinhas(chapasFiltradas);        
+    });
+
+    botaoLimpaBusca.addEventListener('click', () => {
+        renderizarLinhas(chapas);
+        busca.value = '';
     });
 
     // Adiciona a tabela completa à div 'principal'

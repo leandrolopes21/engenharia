@@ -67,14 +67,14 @@ function verificarDados() { // É chamada ao clicar no botão Calcular
     if (peca.value.trim() === "" || num1.value <= 0 || num2.value <= 0 || num3.value <= 0 || qtde.value <= 0) {
         alert("Digite valores válidos e positivos!");
     } else if (num3.value.length < 4 || num3.value.length > 4) {
-        alert("Este campo deve ter 2 casas decimais!")
+        alert("O campo espessura deve ter 2 casas decimais!")
     }
     else {
         verificarMaterial();
     }
 }
 
-function verificarMaterial() {
+function verificarMaterial() { // É chamada pela função verificarDados()
 
     if (material[0].checked) {
         densidade = 8;
@@ -96,7 +96,7 @@ function verificarMaterial() {
     }
 }
 
-function calcular() { // É chamada pela função verificarDados()
+function calcular() { // É chamada pela função verificarMaterial()
 
     var textoPeca = peca.value;
     var quantidade = Number(qtde.value);
@@ -125,7 +125,6 @@ function calcular() { // É chamada pela função verificarDados()
 
     desabilitarCampos();
     sugerirChapas(); // Nova função que substitui lista Chapas()
-    /* listaChapas(); */
 
 }
 
@@ -215,6 +214,11 @@ function criarNovaSectionChapa() {
     botaoBuscar.setAttribute('type', 'submit');
     botaoBuscar.setAttribute('id', 'btn-buscar');
 
+    const botaoLimpaBusca = document.createElement('button'); // Inserir este elemento dentro da div com id=headerChapas
+    botaoLimpaBusca.textContent = 'Limpar';
+    botaoLimpaBusca.setAttribute('type', 'submit');
+    botaoLimpaBusca.setAttribute('id', 'btn-limpa-busca');
+
     const conteiner1 = document.createElement('div'); // Inserir este elemento dentro da section com id=secao_chapas
     conteiner1.setAttribute('id', 'principal_secao_chapas');
 
@@ -223,6 +227,7 @@ function criarNovaSectionChapa() {
     conteiner.appendChild(titulo);
     conteiner.appendChild(busca);
     conteiner.appendChild(botaoBuscar);
+    conteiner.appendChild(botaoLimpaBusca);
     estruturaPrincipal.appendChild(novaSection);
 
     // Criando a tabela
@@ -272,9 +277,20 @@ function criarNovaSectionChapa() {
 
     // Adiciona o evento de clique ao botão de busca
     botaoBuscar.addEventListener('click', () => {
-        const termoBusca = busca.value.toUpperCase();
-        const chapasFiltradas = chapa.filter(chapa => chapa.descricao.toUpperCase().includes(termoBusca));
-        renderizarLinhas(chapasFiltradas);
+        if(busca.value != '') {
+            const termoBusca = busca.value.toUpperCase();
+            const chapasFiltradas = chapas.filter(chapa =>
+            chapa.descricao.toUpperCase().includes(termoBusca)
+        );
+        renderizarLinhas(chapasFiltradas); 
+        } else {
+            alert('Digite um valor para busca!');
+        }
+    });
+
+    botaoLimpaBusca.addEventListener('click', () => {
+        renderizarLinhas(chapas);
+        busca.value = '';
     });
 
     // Adiciona a tabela completa à div 'principal'
@@ -394,6 +410,11 @@ function criarNovaSectionTinta() {
     botaoBuscar.setAttribute('type', 'submit');
     botaoBuscar.setAttribute('id', 'btn-buscar');
 
+    const botaoLimpaBusca = document.createElement('button'); // Inserir este elemento dentro da div com id=headerChapas
+    botaoLimpaBusca.textContent = 'Limpar';
+    botaoLimpaBusca.setAttribute('type', 'submit');
+    botaoLimpaBusca.setAttribute('id', 'btn-limpa-busca');
+
     const conteiner1 = document.createElement('div'); // Inserir este elemento dentro da section com id=secao_tintas
     conteiner1.setAttribute('id', 'principal_secao_tintas');
 
@@ -402,6 +423,7 @@ function criarNovaSectionTinta() {
     conteiner.appendChild(titulo);
     conteiner.appendChild(busca);
     conteiner.appendChild(botaoBuscar);
+    conteiner.appendChild(botaoLimpaBusca);
     estruturaPrincipal.appendChild(novaSection);
 
     // Criando a tabela
@@ -451,11 +473,21 @@ function criarNovaSectionTinta() {
 
     // Adiciona o evento de clique ao botão de busca
     botaoBuscar.addEventListener('click', () => {
-        const termoBusca = busca.value.toUpperCase();
-        const tintasFiltradas = tintas.filter(tinta => 
+        if(busca.value != '') {
+            const termoBusca = busca.value.toUpperCase();
+            const tintasFiltradas = tintas.filter(tinta => 
             tinta.descricao.toUpperCase().includes(termoBusca)
         );
         renderizarLinhas(tintasFiltradas);
+        } else {
+            alert('Digite um valor para busca!');
+        }
+        
+    });
+
+    botaoLimpaBusca.addEventListener('click', () => {
+        renderizarLinhas(tintas);
+        busca.value = '';
     });
 
     // Adiciona a tabela completa à div 'principal'
@@ -465,7 +497,7 @@ function criarNovaSectionTinta() {
     botaoResetListas.disabled = false;
 }
 
-function sugerirChapas() {
+function sugerirChapas() { // É chamada pela função calcular()
     const materialSelecionado = document.querySelector('input[name="radmat"]:checked').id;
     const espessuraDigitada = Number(num3.value);
 

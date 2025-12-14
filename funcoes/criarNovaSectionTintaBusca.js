@@ -21,6 +21,11 @@ function criarNovaSectionTinta() {
     botaoBuscar.setAttribute('type', 'submit');
     botaoBuscar.setAttribute('id', 'btn-buscar');
 
+    const botaoLimpaBusca = document.createElement('button'); // Inserir este elemento dentro da div com id=headerChapas
+    botaoLimpaBusca.textContent = 'Limpar';
+    botaoLimpaBusca.setAttribute('type', 'submit');
+    botaoLimpaBusca.setAttribute('id', 'btn-limpa-busca');
+
     const conteiner1 = document.createElement('div'); // Inserir este elemento dentro da section com id=secao_tintas
     conteiner1.setAttribute('id', 'principal_secao_tintas');
 
@@ -29,6 +34,7 @@ function criarNovaSectionTinta() {
     conteiner.appendChild(titulo);
     conteiner.appendChild(busca);
     conteiner.appendChild(botaoBuscar);
+    conteiner.appendChild(botaoLimpaBusca);
     estruturaPrincipal.appendChild(novaSection);
 
     // Criando a tabela
@@ -83,6 +89,11 @@ function criarNovaSectionTinta() {
             tinta.descricao.toUpperCase().includes(termoBusca)
         );
         renderizarLinhas(tintasFiltradas);
+    });
+
+    botaoLimpaBusca.addEventListener('click', () => {
+        renderizarLinhas(tintas);
+        busca.value = '';
     });
 
     // Adiciona a tabela completa à div 'principal'

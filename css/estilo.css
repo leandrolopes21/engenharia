@@ -395,7 +395,8 @@ div#listas_chapa_tinta {
     font-size: 14px;
 }
 
-#btn-buscar {
+#btn-buscar,
+#btn-limpa-busca {
 
     width: 100px;
     margin-right: 20px;
