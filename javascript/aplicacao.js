@@ -248,8 +248,12 @@ function criarNovaSectionChapa() {
     `;
     
     // Função para renderizar as linhas da tabela
-    function renderizarLinhas(dados) {
+    function renderizarLinhas(dados, termoBusca = '') {
         tbody.innerHTML = ''; // Limpa as linhas existentes
+
+        // Converte o termo de busca para maiúsculas (para corresponder ao filtro)
+        const termoBuscaUpper = termoBusca.toUpperCase();
+
         dados.forEach(chapa => {
             const linha = document.createElement('tr'); // Cria tr para linha
             const tdCodigoChapa = document.createElement('td'); // Cria td para célula
@@ -261,9 +265,36 @@ function criarNovaSectionChapa() {
                 // Chama a função de copiar passando o código da chapa
                 copiarCodigoTintaChapa(chapa.codigo);
             });
+
             // Cria a célula para descrição
             const tdDescricaoChapa = document.createElement('td'); // Cria td para célula
-            tdDescricaoChapa.textContent = chapa.descricao;
+
+            if(termoBuscaUpper.length > 0) {
+                // Se houver um termo de busca, aplica o destaque
+                const descricaoUpper = chapa.descricao.toUpperCase();
+                const indice = descricaoUpper.indexOf(termoBuscaUpper); // Encontra o índice, localiza onde a palavra começa (em maiúsculas)
+
+                if(indice !== -1) {
+                    // Constrói o HTML com a parte destacada
+                    // Divide a string e 3 partes (parteAntes, parteDestacada e parteDepois)
+                    /*
+                    Importante: É usado chapa.descricao.substring(...) (a string original, com a caixa correta) para montar as partes, garantindo que o caso (maiúsculas/minúsculas) da descrição original seja mantido, exceto na parte do destaque que é retirada com base no índice encontrado
+                    */
+                    const parteAntes = chapa.descricao.substring(0, indice);
+                    const parteDestacada = chapa.descricao.substring(indice, indice + termoBuscaUpper.length);
+                    const parteDepois = chapa.descricao.substring(indice + termoBuscaUpper.length);
+
+                    // Montando o HTML
+                    tdDescricaoChapa.innerHTML = `${parteAntes}<span class="destaque-busca">${parteDestacada}</span>${parteDepois}`;
+                } else {
+                    // Caso não encontre (o que não deve acontecer se a filtragem for correta), usa o texto original
+                    tdDescricaoChapa.textContent = chapa.descricao;
+                }
+            } else {
+                // Se não houver termo de busca, usa o texto simples
+                tdDescricaoChapa.textContent = chapa.descricao;
+            }
+        
             // Adiciona as duas células a linha
             linha.appendChild(tdCodigoChapa);
             linha.appendChild(tdDescricaoChapa);
@@ -272,7 +303,7 @@ function criarNovaSectionChapa() {
         });
     }
 
-    // Renderiza a tabela inicial com todas as chapas
+    // Renderiza a tabela inicial com todas as chapas (sem termo de busca)
     renderizarLinhas(chapas);
 
     // Adiciona o evento de clique ao botão de busca
@@ -282,7 +313,7 @@ function criarNovaSectionChapa() {
             const chapasFiltradas = chapas.filter(chapa =>
             chapa.descricao.toUpperCase().includes(termoBusca)
         );
-        renderizarLinhas(chapasFiltradas); 
+        renderizarLinhas(chapasFiltradas, busca.value);
         } else {
             alert('Digite um valor para busca!');
         }
@@ -444,8 +475,12 @@ function criarNovaSectionTinta() {
     `;
 
     // Função para renderizar as linhas da tabela
-    function renderizarLinhas(dados) {
+    function renderizarLinhas(dados, termoBusca = '') {
         tbody.innerHTML = ''; // Limpa as linhas existentes
+
+        // Converte o termo de busca para maiúsculas (para corresponder ao filtro)
+        const termoBuscaUpper = termoBusca.toUpperCase();
+
         dados.forEach(tinta => {
             const linha = document.createElement('tr'); // Cria tr para linha
             const tdCodigoTinta = document.createElement('td'); // Cria td para célula
@@ -457,9 +492,36 @@ function criarNovaSectionTinta() {
                 // Chama a função de copiar passando o código da tinta
                 copiarCodigoTintaChapa(tinta.codigo);
             });
+
             // Cria a célula para descrição
             const tdDescricaoTinta = document.createElement('td'); // Cria td para célula
-            tdDescricaoTinta.textContent = tinta.descricao;
+
+            if(termoBuscaUpper.length > 0) {
+                // Se houver um termo de busca, aplica o destaque
+                const descricaoUpper = tinta.descricao.toUpperCase();
+                const indice = descricaoUpper.indexOf(termoBuscaUpper); // Encontra o índice, localiza onde a palavra começa (em maiúsculas)
+
+                if(indice !== -1) {
+                    // Constrói o HTML com a parte destacada
+                    // Divide a string e 3 partes (parteAntes, parteDestacada e parteDepois)
+                    /*
+                    Importante: É usado chapa.descricao.substring(...) (a string original, com a caixa correta) para montar as partes, garantindo que o caso (maiúsculas/minúsculas) da descrição original seja mantido, exceto na parte do destaque que é retirada com base no índice encontrado
+                    */
+                   const parteAntes = tinta.descricao.substring(0, indice);
+                   const parteDestacada = tinta.descricao.substring(indice, indice + termoBuscaUpper.length);
+                   const parteDepois = tinta.descricao.substring(indice + termoBuscaUpper.length);
+
+                   // Montando o HTML
+                   tdDescricaoTinta.innerHTML = `${parteAntes}<span class="destaque-busca">${parteDestacada}</span>${parteDepois}`;
+                } else {
+                    // Caso não encontre (o que não deve acontecer se a filtragem for correta), usa o texto original
+                    tdDescricaoTinta.textContent = tinta.descricao;
+                }
+            } else {
+                // Se não houver termo de busca, usa o texto simples
+                tdDescricaoTinta.textContent = tinta.descricao;
+            }
+
             // Adiciona as duas céluas a linha
             linha.appendChild(tdCodigoTinta)
             linha.appendChild(tdDescricaoTinta);
@@ -478,11 +540,10 @@ function criarNovaSectionTinta() {
             const tintasFiltradas = tintas.filter(tinta => 
             tinta.descricao.toUpperCase().includes(termoBusca)
         );
-        renderizarLinhas(tintasFiltradas);
+        renderizarLinhas(tintasFiltradas, busca.value);
         } else {
             alert('Digite um valor para busca!');
-        }
-        
+        }        
     });
 
     botaoLimpaBusca.addEventListener('click', () => {
