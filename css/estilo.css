@@ -96,7 +96,7 @@ body::before {
 
 #estrutura_principal { /* referente ao main */
 
-    width: 1280px;
+    max-width: 1280px;
 
     display: flex;
     flex-direction: row;
@@ -374,6 +374,13 @@ div#listas_chapa_tinta {
 
     display: flex;
     align-items: center;
+}
+
+.destaque-busca {
+    background-color: var(--cor_fundo_azul);
+    color: var(--cor_branco);
+    font-weight: bold;
+    padding: 0 10px;
 }
 
 .btn-copiar {
