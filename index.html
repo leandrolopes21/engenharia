@@ -12,6 +12,7 @@
     <title>Dados Técnicos</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 
 </head>
 <body>
@@ -29,17 +30,34 @@
         <section id="secao">
             <div id="header">
                 <h2>Cálculo de peça e conjunto</h2>
-                <p>* Preencha todos os campos solicitados *</p>
+                <p>* Selecione um arquivo PDF ou Preencha todos os campos solicitados *</p>
             </div>
             <div id="caesa">
+
+                <!-- Input para importar PDF -->
+                <div class="item" style="width: 100%; justify-content: center; margin-bottom: 15px; border-bottom: 1px dashed var(--cor_preto); padding-bottom: 15px;">
+    
+                    <label for="uploadPDF" class="uploadPDF">
+                        📁 Selecionar PDF
+                    </label>
+                    
+                    <input type="file" id="uploadPDF" accept="application/pdf" style="display: none;">
+                    
+                    <span id="status-upload">Nenhum arquivo importado</span>
+
+                    <a id="link-abrir-pdf" href="#" target="_blank">Visualizar PDF</a>
+                
+                </div>
+
                 <div class="item">
-                    <label for="peca: ">Nome da peça:</label>
+                    <label for="peca">Nome da peça:</label>
                     <input type="text" name="peca" id="peca" oninput="this.value = this.value.toUpperCase()" required>
                 </div>
                 <div class="item">
                     <label for="qtde">Quantidade:</label>
                     <input type="number" name="qtde" id="qtde" required>
                 </div>
+
                 <!-- O evento oninput acima, converte tudo que for digitado na caixa de texto, para letras maiúsculas -->
                 <!-- this.value refere-se ao valor atual do texto digitado -->
             </div>

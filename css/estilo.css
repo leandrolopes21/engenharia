@@ -213,6 +213,42 @@ div#caesa {
     text-align: center;
 }
 
+.uploadPDF {
+
+    width: 140px;
+    padding: 5px 15px;
+    border: 1px solid var(--cor_preto);
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    background-color: var(--cor_botao);
+}
+
+.uploadPDF:hover {
+
+    background-color: var(--cor_preto);
+    color: var(--cor_branco);
+    font-size: 14px;
+}
+
+#status-upload {
+    margin-left: 15px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+}
+
+#link-abrir-pdf {
+    display: none;
+    margin-left: 15px;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: var(--cor_fundo_azul);
+}
+
 div#principal {
 
     background-color: var(--cor_branco);
@@ -376,13 +412,6 @@ div#listas_chapa_tinta {
     align-items: center;
 }
 
-.destaque-busca {
-    background-color: var(--cor_fundo_azul);
-    color: var(--cor_branco);
-    font-weight: bold;
-    padding: 0 10px;
-}
-
 .btn-copiar {
 
     width: 55px;
@@ -413,6 +442,12 @@ div#listas_chapa_tinta {
     cursor: pointer;
     border-radius: 5px;
     background-color: var(--cor_botao);
+}
+
+.destaque-busca {
+    /* background-color: var(--cor_fundo_azul); */
+    font-weight: bold;
+    color: var(--cor_preto);
 }
 
 div#calculado {

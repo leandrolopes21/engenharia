@@ -1,26 +1,26 @@
-let dataAtual = document.getElementById('espaco_data_sistema');
-var chapa = document.getElementById('chapa');
-var peca = document.getElementById('peca');
-var qtde = document.getElementById('qtde');
-var num1 = document.getElementById('num1');
-var num2 = document.getElementById('num2');
-var num3 = document.getElementById('num3');
-var divSug = document.getElementById('sugestao');
-var botaoCalcular = document.getElementById('bt1');
-var botaoLimpar = document.getElementById('bt2');
-var botaoFinal = document.getElementById('btFinal');
-var botaoExportarPDF = document.getElementById('btExportar');
-var botaoReiniciar = document.getElementById('btReiniciar');
+const dataAtual = document.getElementById('espaco_data_sistema');
+const chapa = document.getElementById('chapa');
+const peca = document.getElementById('peca');
+const qtde = document.getElementById('qtde');
+const num1 = document.getElementById('num1');
+const num2 = document.getElementById('num2');
+const num3 = document.getElementById('num3');
+const divSug = document.getElementById('sugestao');
+const botaoCalcular = document.getElementById('bt1');
+const botaoLimpar = document.getElementById('bt2');
+const botaoFinal = document.getElementById('btFinal');
+const botaoExportarPDF = document.getElementById('btExportar');
+const botaoReiniciar = document.getElementById('btReiniciar');
 const nomeArquivoDiv = document.getElementById('arquivo');
-var listaResultados = document.getElementById('lista-resultados');
-var somaTinta = document.getElementById('soma-tinta');
-var somaPeso = document.getElementById('soma-peso');
-var somaMetroQuad = document.getElementById('soma-metroQuad');
-var material = document.getElementsByName('radmat');
-var densidade = 0;
-var totalMetroQuad = 0;
-var totalPeso = 0;
-var totalTinta = 0;
+const listaResultados = document.getElementById('lista-resultados');
+const somaTinta = document.getElementById('soma-tinta');
+const somaPeso = document.getElementById('soma-peso');
+const somaMetroQuad = document.getElementById('soma-metroQuad');
+const material = document.getElementsByName('radmat');
+let densidade = 0;
+let totalMetroQuad = 0;
+let totalPeso = 0;
+let totalTinta = 0;
 let itemInput = null;
 
 const estruturaPrincipal = document.getElementById('estrutura_principal');
@@ -36,14 +36,33 @@ botaoReiniciar.disabled = true;
 botaoResetListas.disabled = true;
 
 const sectionCaesa = document.getElementById('secao');
-const inputsC = sectionCaesa.querySelectorAll('input');
+const apertaEnter = sectionCaesa.querySelectorAll('input[type="text"], input[type="number"]');
 
-inputsC.forEach((input, index) => {
+// Navegação com botão Enter - ANTIGO
+// inputsC.forEach((input, index) => {
+//     input.addEventListener("keydown", (evento) => {
+//         if (evento.key === "Enter") {
+//             evento.preventDefault();
+//             if (index < inputsC.length - 1) {
+//                 inputsC[index + 1].focus();
+//             } else {
+//                 verificarDados();
+//             }
+//         }
+//     });
+// });
+
+// Navegação com botão Enter - ATUALIZADO PARA CALCULAR
+apertaEnter.forEach((input, index) => {
     input.addEventListener("keydown", (evento) => {
         if (evento.key === "Enter") {
             evento.preventDefault();
-            if (index < inputsC.length - 1) {
-                inputsC[index + 1].focus();
+            // Se não for o último campo da lista, pula para o próximo
+            if (index < apertaEnter.length - 1) {
+                apertaEnter[index + 1].focus();
+            } else {
+                // Ao dar Enter no último campo (num3), dispara a função de cálculo
+                verificarDados(); // Executa o cálculo ao dar Enter no último campo
             }
         }
     });
@@ -67,9 +86,10 @@ function verificarDados() { // É chamada ao clicar no botão Calcular
     if (peca.value.trim() === "" || num1.value <= 0 || num2.value <= 0 || num3.value <= 0 || qtde.value <= 0) {
         alert("Digite valores válidos e positivos!");
     } else if (num3.value.length < 4 || num3.value.length > 4) {
-        alert("O campo espessura deve ter 2 casas decimais!")
-    }
-    else {
+        alert("O campo Espessura deve ter 2 casas decimais!")
+    } else if (num1.value.length > 4 || num2.value.length > 4) {
+        alert("Os campos Comprimento e Largura devem ter no máximo 4 casas!");
+    } else {
         verificarMaterial();
     }
 }
@@ -98,19 +118,19 @@ function verificarMaterial() { // É chamada pela função verificarDados()
 
 function calcular() { // É chamada pela função verificarMaterial()
 
-    var textoPeca = peca.value;
-    var quantidade = Number(qtde.value);
-    var val1 = Number(num1.value);
-    var val2 = Number(num2.value);
-    var val3 = Number(num3.value);
+    const textoPeca = peca.value;
+    const quantidade = Number(qtde.value);
+    const val1 = Number(num1.value);
+    const val2 = Number(num2.value);
+    const val3 = Number(num3.value);
 
-    var mat = String(document.querySelector('input[name="radmat"]:checked').id);
-    var metroQuad = (val1 / 1000) * (val2 / 1000);
-    var peso = metroQuad * val3 * densidade;
-    var tinta = (metroQuad * 2) / 3.6;
+    const mat = String(document.querySelector('input[name="radmat"]:checked').id);
+    const metroQuad = (val1 / 1000) * (val2 / 1000);
+    const peso = metroQuad * val3 * densidade;
+    const tinta = (metroQuad * 2) / 3.6;
 
     // Lista que armazena os resultados anteriores
-    var itemResultado = document.createElement('li');
+    const itemResultado = document.createElement('li');
     itemResultado.innerHTML = `<strong>PEÇA:</strong> ${textoPeca} - <strong>Material:</strong> ${mat} - <strong>Dimensões:</strong> ${val1}mm x ${val2}mm - <strong>Espessura:</strong> ${val3.toFixed(2)}mm - <strong>Qtde:</strong> ${quantidade}x <br> * Valores por unidade ----> <strong>Metro²:</strong> ${metroQuad.toFixed(3)} m² | <strong>Peso:</strong> ${peso.toFixed(3)} Kg | <strong>Tinta:</strong> ${tinta.toFixed(3)} Kg`;
     listaResultados.appendChild(itemResultado);
 
@@ -139,6 +159,7 @@ function desabilitarCampos() { // É chamada pela função calcular()
     botaoLimpar.disabled = false;
     botaoFinal.disabled = false;
     botaoReiniciar.disabled = false;
+    inputPDF.disabled = true;
 
     for (let i = 0; i < material.length; i++) {
         material[i].disabled = true;
@@ -617,6 +638,7 @@ function limpar() { // É chamada ao clicar no botão Limpar Dados
     num2.disabled = false;
     num3.disabled = false;
     botaoCalcular.disabled = false;
+    inputPDF.disabled = false;
     peca.value = "";
     qtde.value = "";
     num1.value = "";
@@ -636,6 +658,20 @@ function limpar() { // É chamada ao clicar no botão Limpar Dados
     botaoExportarPDF.disabled = true;
 
     divSug.innerHTML = '';
+
+    // Reseta a mensagem do botão customizado
+    const statusUpload = document.getElementById('status-upload');
+    if (statusUpload) {
+        statusUpload.innerText = "Nenhum arquivo importado";
+        statusUpload.style.color = "#555";
+    }
+
+    // Esconde e reseta o link do PDF
+    const linkAbrir = document.getElementById('link-abrir-pdf');
+    if (linkAbrir) {
+        linkAbrir.style.display = "none";
+        linkAbrir.href = "#";
+    }
 
     peca.focus();
 
@@ -665,6 +701,7 @@ function criarInput() {
     botaoCalcular.disabled = true;
     botaoLimpar.disabled = true;
     botaoFinal.disabled = true;
+    inputPDF.disabled = true;
     botaoExportarPDF.disabled = false;
     botaoReiniciar.disabled = false;
 
@@ -676,13 +713,27 @@ function criarInput() {
         material[i].checked = false;
     }
 
+    // Reseta a mensagem do botão customizado
+    const statusUpload = document.getElementById('status-upload');
+    if (statusUpload) {
+        statusUpload.innerText = "Nenhum arquivo importado";
+        statusUpload.style.color = "#555";
+    }
+
+    // Esconde e reseta o link do PDF
+    const linkAbrir = document.getElementById('link-abrir-pdf');
+    if (linkAbrir) {
+        linkAbrir.style.display = "none";
+        linkAbrir.href = "#";
+    }
+
     divSug.innerHTML = '';
 
 }
 
 function exportarPDF() {
     const { jsPDF } = window.jspdf;
-    let doc = new jsPDF('l', 'mm', 'a4');
+    const doc = new jsPDF('l', 'mm', 'a4');
 
     // String base da logo - utilizando um conversor base64 online
     const logoBase64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdCAMAAABhTZc9AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAGVUExURS9JUzFJUzJJUzRKUjVKUjhLUThLUjlERTlLUTpERTpLUTpMUTtMUTxMUT1MUT5MUD5NUT9NUD9NUUBNUEFNUEFOUEJMTUJNT0JOUENMTUNOUEROT0ROUERPUEVPUEZQT0tQT0xRTkxRT1FTTVJSTVNTTVVTTVZTTVZUTFxVTF9WS2FWS2RXSWRYSWVXSWVXSmVYSWdYSWdYSmlZSWlZSm5aSW51dm52dnVcSHZcR31eRn5fRoNgRYtiRIxiQ4xjRI9jQpFkQ5dlQptnQqBoQKJqQKNpQKVrP6ZpP6ZqP6dqP6prPqtrPqxrPq1sPq5sPa5sPq9sPa9sPq9tPrBtPbFtPbJuPrVuPbZuPbZvPLhvPLpvPLpwPLxwO7xxPL1wO75xO79xO8BxO8ByO8FyO8NyO8p0Ocx0Oc11OM92ONB3N9N3ONR3N9Z3ONl4N+h8NOl8NOp9NOt+NOx+M+5+M/SAMvWAMveBMvmBMvmCMvqCMfr6+vr7+vv6+vv7+v2CMf6DMf+DMP+DMf+EMP+FL/+GLv+GL0oSohoAAAFiSURBVCjPY6gzE5OWwwakxcxqGMw4sUsCpdnNGCRxSQKlJRlwSwKlGeTwAaCsIAcbBwcrtxSIK8MHYrOJwmUFLf3DPd3C3BWA0jJCDuFurn5R2qJwWQu3xMa2tFAlsKxddktLXqq+MJLJjCWNglxSsiCTOTSqmk1YRGXgsnIyTIWVshKyYL6IWnmTsYAMwlVyckz5pVJSEL6oalmTgZAcimxBqQySrA66bBmSbIPuYJGFuFlKVAYmKyMqLIHqXylFTVkRoI/0hORkJNS1VCRgYVUhIyEjw+WSKS8IDCtDIRkp3px6Zx6QrDAPQ0kjPys3N2NanDibWlWjETM3B19xpT1IVtjUMbK5LSk+ISW9zYfDJqOlJSs2ITm3tciKDygrYB0R4+0REBQUHBhhyuUU7eXpGxQUEBJuqwy2V4CDDZggQEmCTVCGl40VyuaFuRl3usKfJvGnZ/x5odYcZz4yrwYA9eCCzk6LdKQAAAAASUVORK5CYII=';
@@ -714,7 +765,7 @@ function exportarPDF() {
     const pegaNomeArquivo = document.getElementById('nomeArquivo').value;
 
     // Cria o nome fixo do relatório a ser gerado
-    let cabFixo = ('RELATÓRIO DE PEÇAS E CONJUNTOS CAESA');
+    const cabFixo = ('RELATÓRIO DE PEÇAS E CONJUNTOS CAESA');
     doc.setFontSize(18); // Tamanho da fonte para o título
     doc.setFont('Poppins', 'bold'); // Fonte em negrito
     const larguraTextoCabFixo = doc.getTextWidth(cabFixo);
@@ -722,7 +773,7 @@ function exportarPDF() {
     doc.text(cabFixo, posicaoXCabFixo, margemSuperior - 10);
 
     // Título do Relatório (Centralizado)
-    let cab = (pegaNomeArquivo);
+    const cab = (pegaNomeArquivo);
     doc.setFontSize(15); // Tamanho da fonte para o título
     doc.setFont('Poppins', 'bold'); // Fonte em negrito
     const larguraTextoCab = doc.getTextWidth(cab);
@@ -730,7 +781,7 @@ function exportarPDF() {
     doc.text(cab, posicaoXCab, margemSuperior - 2);
 
     // Insere data e hora
-    let date_hour = new Date();
+    const date_hour = new Date();
     doc.setFontSize(12); // Tamanho da fonte para data
     doc.setFont('Poppins', 'bold'); // Fonte em negrito
     const larguraDataTextoFixo = doc.getTextWidth(date_hour);
@@ -740,17 +791,40 @@ function exportarPDF() {
     // Informações resumidas
     doc.setFontSize(14); // Tamanho da fonte para o resumo
     doc.setFont('helvetica', 'normal'); // Volta para a fonte normal
-    let textoResumo = `Metro² Total: ${totalMetroQuad.toFixed(3)} m²\nPeso Total: ${totalPeso.toFixed(3)} Kg\nTinta Total: ${totalTinta.toFixed(3)} Kg`;
+    const textoResumo = `Metro² Total: ${totalMetroQuad.toFixed(3)} m²\nPeso Total: ${totalPeso.toFixed(3)} Kg\nTinta Total: ${totalTinta.toFixed(3)} Kg`;
     doc.text(textoResumo, margemEsquerda + 10, margemSuperior + 10); // Posição abaixo do título
 
-    // Lista de Resultados
-    doc.setFontSize(12); // Tamanho da fonte para a lista
+    // Lista de Resultados - ANTIGO
+    // doc.setFontSize(12); // Tamanho da fonte para a lista
+    // doc.setFont('helvetica', 'normal');
+    // let listaResultadosTexto = "";
+    // for (let i = 0; i < listaResultados.children.length; i++) {
+    //     listaResultadosTexto += listaResultados.children[i].innerText + "\n\n";
+    // }
+    // doc.text(listaResultadosTexto, margemEsquerda + 10, margemSuperior + 40); // Posição abaixo do resumo
+
+    // Lista de resultados - corrigido
+    // Substitua o bloco // Lista de Resultados por este:
+    doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-    let listaResultadosTexto = "";
+
+    let eixoY = margemSuperior + 40; // Posição inicial vertical
+
     for (let i = 0; i < listaResultados.children.length; i++) {
-        listaResultadosTexto += listaResultados.children[i].innerText + "\n\n";
+        let textoLinha = listaResultados.children[i].innerText;
+    
+        // Divide o texto automaticamente se ele for mais largo que a página
+        let linhasDivididas = doc.splitTextToSize(textoLinha, larguraPagina - margemEsquerda - margemDireita - 20);
+    
+        // Verifica se a próxima linha vai estourar o limite inferior da página
+        if (eixoY + (linhasDivididas.length * 6) > alturaPagina - margemInferior) {
+            doc.addPage(); // Cria uma nova página
+            eixoY = margemSuperior + 10; // Reseta a posição Y na nova página
+        }
+    
+        doc.text(linhasDivididas, margemEsquerda + 10, eixoY);
+        eixoY += (linhasDivididas.length * 6) + 5; // Adiciona o espaço para a próxima peça
     }
-    doc.text(listaResultadosTexto, margemEsquerda + 10, margemSuperior + 40); // Posição abaixo do resumo
 
     // Rodapé (Número da página)
     const totalPaginas = doc.internal.getNumberOfPages();
@@ -779,6 +853,7 @@ function reiniciar() {
     num2.disabled = false;
     num3.disabled = false;
     botaoCalcular.disabled = false;
+    inputPDF.disabled = false;
     peca.value = "";
     qtde.value = "";
     num1.value = "";
@@ -806,6 +881,20 @@ function reiniciar() {
     botaoReiniciar.disabled = true;
 
     divSug.innerHTML = '';
+
+    // Reseta a mensagem do botão customizado
+    const statusUpload = document.getElementById('status-upload');
+    if (statusUpload) {
+        statusUpload.innerText = "Nenhum arquivo importado";
+        statusUpload.style.color = "#555";
+    }
+
+    // Esconde e reseta o link do PDF
+    const linkAbrir = document.getElementById('link-abrir-pdf');
+    if (linkAbrir) {
+        linkAbrir.style.display = "none";
+        linkAbrir.href = "#";
+    }
 
     peca.focus();
     removerinput();
@@ -842,4 +931,126 @@ function resetListas() {
     botaoChapas.disabled = false;
     botaoTintas.disabled = false;
     botaoResetListas.disabled = true;
+}
+
+// Este uso é opcional
+// Função para importar um arquivo pdf contendo valores, como comprimento, largura e espessura
+
+// 1. Configuração obrigatória do "trabalhador" do PDF.js
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+const inputPDF = document.getElementById('uploadPDF');
+
+// 2. Evento que dispara quando você seleciona um arquivo
+inputPDF.addEventListener('change', async function(evento) {
+    const arquivo = evento.target.files[0];
+    if (!arquivo) return;
+
+    // Cria a URL temporária na memória do navegador
+    const urlTemporaria = URL.createObjectURL(arquivo);
+
+    const leitor = new FileReader();
+    
+    leitor.onload = async function(e) {
+        const arrayBuffer = e.target.result;
+        
+        try {
+            // Carrega o documento PDF na memória
+            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            
+            // Pega apenas a página 1 (onde estão os dados da CAESA)
+            const pagina = await pdf.getPage(1);
+            
+            // Extrai todo o conteúdo de texto da página
+            const conteudoTexto = await pagina.getTextContent();
+            
+            // Junta todas as palavras soltas em uma única frase gigante para podermos pesquisar
+            const textoCompleto = conteudoTexto.items.map(item => item.str).join(' ');
+            
+            // Imprime no console (F12) para você ver como a máquina enxerga o texto
+            console.log("Texto extraído:", textoCompleto); 
+            
+            // Envia o texto para a nossa função que vai "pescar" os números
+            pescarDadosDoTexto(textoCompleto, urlTemporaria);
+            
+        } catch (erro) {
+            console.error("Erro ao ler o PDF:", erro);
+            alert("Não foi possível ler este arquivo PDF. Verifique se não está corrompido.");
+        }
+    };
+    
+    leitor.readAsArrayBuffer(arquivo); // Inicia a leitura
+});
+
+function pescarDadosDoTexto(texto, urlArquivo) {
+    const textoLimpo = texto.replace(/\s+/g, ' ');
+
+    // 1. CAPTURAR O NOME DA PEÇA
+    // Procura por qualquer palavra que termine com ".ipt" e tenha uma barra "\" antes
+    const regexPeca = /\\([^\\]+)\.ipt/i;
+    const matchPeca = textoLimpo.match(regexPeca);
+    if (matchPeca) {
+        // Pega apenas o nome (ex: "P43819") e joga no campo, forçando maiúsculas
+        document.getElementById('peca').value = matchPeca[1].toUpperCase();
+    }
+
+    // 2. CAPTURAR O MATERIAL E MARCAR O RADIO BUTTON
+    // Vamos transformar tudo em maiúsculas para facilitar a busca
+    const textoUpper = textoLimpo.toUpperCase();
+    
+    // Procura as palavras-chave do material e marca o item correspondente (id do HTML)
+    if (textoUpper.includes('SAE 1010') || textoUpper.includes('SAE 1020') || textoUpper.includes('CARBONO')) {
+        document.getElementById('Aco').checked = true;
+    } else if (textoUpper.includes('ALUMINIO') || textoUpper.includes('ALUMÍNIO')) {
+        document.getElementById('Aluminio').checked = true;
+    } else if (textoUpper.includes('GALVANIZADO')) {
+        document.getElementById('Galvanizado').checked = true;
+    } else if (textoUpper.includes('INOX 304')) {
+        document.getElementById('Inox304').checked = true;
+    } else if (textoUpper.includes('INOX 430')) {
+        document.getElementById('Inox430').checked = true;
+    }
+
+    // 3. CAPTURAR AS DIMENSÕES (A lógica das medidas que você já testou)
+    const regexTodos = /(\d+(?:,\d+)?)\s*mm(?!\^)/gi;
+    const medidasEncontradas = [];
+    let match;
+    
+    while ((match = regexTodos.exec(textoLimpo)) !== null) {
+        const valorDecimal = parseFloat(match[1].replace(',', '.'));
+        medidasEncontradas.push(valorDecimal);
+    }
+
+    if (medidasEncontradas.length >= 3) {
+        medidasEncontradas.sort((a, b) => b - a);
+
+        const comprimento = medidasEncontradas[0];
+        const largura = medidasEncontradas[1];
+        const espessura = medidasEncontradas[medidasEncontradas.length - 1];
+
+        document.getElementById('num1').value = Math.round(comprimento);
+        document.getElementById('num2').value = Math.round(largura);
+        document.getElementById('num3').value = espessura.toFixed(2); 
+
+        // Troca o nosso texto customizado e muda a cor para verde
+        const statusUpload = document.getElementById('status-upload');
+        statusUpload.innerText = "✔️ PDF Importado com Sucesso!";
+        statusUpload.style.color = "green";
+        
+        // O pulo do gato na usabilidade:
+        // Foca automaticamente no campo QUANTIDADE, que é a única coisa que você precisa digitar!
+        document.getElementById('qtde').focus();
+
+        // NOVO: Exibe o link e atrela a URL temporária a ele
+        const linkAbrir = document.getElementById('link-abrir-pdf');
+        if (linkAbrir) {
+            linkAbrir.href = urlArquivo;
+            linkAbrir.style.display = "inline"; // Torna o link visível
+        }
+    } else {
+        alert("Encontrei menos de 3 medidas em 'mm' no arquivo. Faça o preenchimento manual das medidas.");
+    }
+    
+    // Limpa a memória do input invisível
+    document.getElementById('uploadPDF').value = "";
 }
