@@ -21,14 +21,16 @@ Este projeto é uma ferramenta utilitária para engenharia e produção. Ele per
     *   Inox 430 (Densidade: 8.2)
 *   **Sugestão de Chapas:** Ao calcular, o sistema sugere automaticamente o código da chapa cadastrada compatível com o material e espessura informados.
 
-### 2. Automação com PDF
-*   **Importação de PDF (`pdf.js`):** Capacidade de ler arquivos PDF técnicos (desenhos), extrair automaticamente o nome da peça (`.ipt`), identificar o material e capturar as dimensões (comprimento, largura e espessura).
+### 2. Automação e Importação
+*   **Importação de PDF (`pdf.js`):** Capacidade de ler arquivos PDF técnicos (desenhos), extrair automaticamente o nome da peça (`.ipt`), identificar o material e capturar as dimensões (comprimento, largura e espessura). Inclui link para visualização rápida do arquivo importado.
+*   **Importação de JSON:** Suporte a leitura de arquivos de dados `.json` para preenchimento automático dos campos (peça, material e dimensões).
 *   **Exportação de Relatório (`jspdf`):** Gera um relatório em PDF contendo a lista de todas as peças calculadas, somatórios totais e data do sistema.
 
-### 3. Consulta de Cadastros
-*   **Listas Dinâmicas:** Visualização de chapas e tintas cadastradas no sistema.
-*   **Busca Inteligente:** Filtro em tempo real por descrição ou código.
+### 3. Consulta de Cadastros e Interface
+*   **Listas Dinâmicas:** Botões para carregar tabelas de chapas e tintas diretamente na tela principal, com opção de resetar a visualização.
+*   **Busca Inteligente:** Filtro em tempo real por descrição nas listas geradas.
 *   **Copiar Código:** Funcionalidade de clique para copiar o código do item para a área de transferência.
+*   **Usabilidade:** Exibição da data do sistema, navegação entre campos via tecla "Enter" e botão de "Reiniciar Aplicação" para limpar todo o estado.
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -53,7 +55,8 @@ Este projeto é uma ferramenta utilitária para engenharia e produção. Ele per
 1.  **Abrir a Aplicação:** Execute o arquivo `index.html` em seu navegador.
 2.  **Entrada de Dados:**
     *   *Manual:* Digite o nome da peça, quantidade, selecione o material e insira as dimensões (mm).
-    *   *Automática:* Clique em "Selecionar PDF" e escolha um arquivo técnico compatível. O sistema preencherá os campos.
+    *   *Importação PDF:* Clique no botão "PDF" e escolha um arquivo técnico. O sistema extrai os dados e permite visualizar o arquivo.
+    *   *Importação JSON:* Clique no botão "Arquivo de dados" para carregar informações via arquivo `.json`.
 3.  **Calcular:** Pressione "Enter" no último campo ou clique em "Calcular".
 4.  **Resultados:**
     *   O item será adicionado à lista de resultados.
@@ -61,6 +64,7 @@ Este projeto é uma ferramenta utilitária para engenharia e produção. Ele per
     *   Uma sugestão de chapa aparecerá se houver correspondência no cadastro.
 5.  **Consultas:** Utilize os botões "Lista de chapas" ou "Lista de tintas" para abrir as tabelas de busca.
 6.  **Finalização:**
+    *   Caso deseje limpar tudo, utilize o botão "Reiniciar Aplicação".
     *   Clique em "Finalizar Dados" para preparar o relatório.
     *   Insira o nome do arquivo e clique em "Exportar PDF" para baixar o relatório.
 
