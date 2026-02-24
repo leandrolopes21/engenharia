@@ -213,9 +213,11 @@ div#caesa {
     text-align: center;
 }
 
-.uploadPDF {
+.uploadPDF,
+.uploadJSON {
 
     width: 140px;
+    height: 60px;
     padding: 5px 15px;
     border: 1px solid var(--cor_preto);
     border-radius: 5px;
@@ -226,7 +228,8 @@ div#caesa {
     background-color: var(--cor_botao);
 }
 
-.uploadPDF:hover {
+.uploadPDF:hover,
+.uploadJSON:hover {
 
     background-color: var(--cor_preto);
     color: var(--cor_branco);
@@ -597,4 +600,8 @@ div#limpar {
 
 .rodape {
     padding: 20px;
+}
+
+.rodape p {
+    font-weight: bold;
 }

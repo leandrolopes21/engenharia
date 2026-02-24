@@ -38,20 +38,6 @@ botaoResetListas.disabled = true;
 const sectionCaesa = document.getElementById('secao');
 const apertaEnter = sectionCaesa.querySelectorAll('input[type="text"], input[type="number"]');
 
-// Navegação com botão Enter - ANTIGO
-// inputsC.forEach((input, index) => {
-//     input.addEventListener("keydown", (evento) => {
-//         if (evento.key === "Enter") {
-//             evento.preventDefault();
-//             if (index < inputsC.length - 1) {
-//                 inputsC[index + 1].focus();
-//             } else {
-//                 verificarDados();
-//             }
-//         }
-//     });
-// });
-
 // Navegação com botão Enter - ATUALIZADO PARA CALCULAR
 apertaEnter.forEach((input, index) => {
     input.addEventListener("keydown", (evento) => {
@@ -160,6 +146,7 @@ function desabilitarCampos() { // É chamada pela função calcular()
     botaoFinal.disabled = false;
     botaoReiniciar.disabled = false;
     inputPDF.disabled = true;
+    inputJSON.disabled = true;
 
     for (let i = 0; i < material.length; i++) {
         material[i].disabled = true;
@@ -639,6 +626,7 @@ function limpar() { // É chamada ao clicar no botão Limpar Dados
     num3.disabled = false;
     botaoCalcular.disabled = false;
     inputPDF.disabled = false;
+    inputJSON.disabled = false;
     peca.value = "";
     qtde.value = "";
     num1.value = "";
@@ -702,6 +690,7 @@ function criarInput() {
     botaoLimpar.disabled = true;
     botaoFinal.disabled = true;
     inputPDF.disabled = true;
+    inputJSON.disabled = true;
     botaoExportarPDF.disabled = false;
     botaoReiniciar.disabled = false;
 
@@ -854,6 +843,7 @@ function reiniciar() {
     num3.disabled = false;
     botaoCalcular.disabled = false;
     inputPDF.disabled = false;
+    inputJSON.disabled = false;
     peca.value = "";
     qtde.value = "";
     num1.value = "";
@@ -1054,3 +1044,67 @@ function pescarDadosDoTexto(texto, urlArquivo) {
     // Limpa a memória do input invisível
     document.getElementById('uploadPDF').value = "";
 }
+
+// Bloco de código para importar arquivo json
+// Captura o novo input do JSON
+const inputJSON = document.getElementById('uploadJSON');
+
+inputJSON.addEventListener('change', function(evento) {
+    const arquivo = evento.target.files[0];
+    if (!arquivo) return;
+
+    const leitor = new FileReader();
+    
+    leitor.onload = function(e) {
+        try {
+            // Converte o texto do arquivo no objeto JavaScript
+            const dados = JSON.parse(e.target.result);
+            
+            // 1. Preenche a Peça
+            document.getElementById('peca').value = dados.peca.toUpperCase();
+            
+            // 2. Preenche o Material
+            const matUpper = dados.material.toUpperCase();
+            if (matUpper.includes('1010') || matUpper.includes('1020') || matUpper.includes('CARBONO')) {
+                document.getElementById('Aco').checked = true;
+            } else if (matUpper.includes('ALUMINIO') || matUpper.includes('ALUMÍNIO')) {
+                document.getElementById('Aluminio').checked = true;
+            } else if (matUpper.includes('GALVANIZADO')) {
+                document.getElementById('Galvanizado').checked = true;
+            } else if (matUpper.includes('INOX 304')) {
+                document.getElementById('Inox304').checked = true;
+            } else if (matUpper.includes('INOX 430')) {
+                document.getElementById('Inox430').checked = true;
+            }
+
+            // 3. Preenche as Medidas
+            document.getElementById('num1').value = Math.round(dados.comprimento);
+            document.getElementById('num2').value = Math.round(dados.largura);
+            document.getElementById('num3').value = dados.espessura.toFixed(2);
+            
+            // 4. Feedback visual
+            const statusUpload = document.getElementById('status-upload');
+            if (statusUpload) {
+                statusUpload.innerText = "✔️ Arquivo de dados importado com Sucesso!";
+                statusUpload.style.color = "green";
+            }
+            
+            // Esconde o atalho do PDF caso estivesse visível de uma importação anterior
+            const linkAbrir = document.getElementById('link-abrir-pdf');
+            if (linkAbrir) {
+                linkAbrir.style.display = "none";
+                linkAbrir.href = "#";
+            }
+            
+            // Limpa a memória e foca na Quantidade
+            inputJSON.value = ""; 
+            document.getElementById('qtde').focus();
+            
+        } catch (erro) {
+            console.error("Erro ao ler o arquivo JSON:", erro);
+            alert("O arquivo selecionado não é um JSON válido gerado pelo Inventor.");
+        }
+    };
+    
+    leitor.readAsText(arquivo);
+});

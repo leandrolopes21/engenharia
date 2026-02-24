@@ -30,7 +30,7 @@
         <section id="secao">
             <div id="header">
                 <h2>Cálculo de peça e conjunto</h2>
-                <p>* Selecione um arquivo PDF ou Preencha todos os campos solicitados *</p>
+                <p>* Selecione um arquivo PDF, arquivo de dados, ou Preencha todos os campos solicitados *</p>
             </div>
             <div id="caesa">
 
@@ -38,10 +38,17 @@
                 <div class="item" style="width: 100%; justify-content: center; margin-bottom: 15px; border-bottom: 1px dashed var(--cor_preto); padding-bottom: 15px;">
     
                     <label for="uploadPDF" class="uploadPDF">
-                        📁 Selecionar PDF
+                        📁 PDF
                     </label>
                     
                     <input type="file" id="uploadPDF" accept="application/pdf" style="display: none;">
+
+                    <!-- Input para importar de dados json -->
+                    <label for="uploadJSON" class="uploadJSON">
+                        {} Arquivo de dados
+                    </label>
+                    
+                    <input type="file" name="uploadJSON" id="uploadJSON" accept=".json" style="display: none;">
                     
                     <span id="status-upload">Nenhum arquivo importado</span>
 
