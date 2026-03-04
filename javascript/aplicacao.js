@@ -1018,8 +1018,8 @@ function pescarDadosDoTexto(texto, urlArquivo) {
         const largura = medidasEncontradas[1];
         const espessura = medidasEncontradas[medidasEncontradas.length - 1];
 
-        document.getElementById('num1').value = Math.round(comprimento);
-        document.getElementById('num2').value = Math.round(largura);
+        document.getElementById('num1').value = (Math.round(comprimento)) + 10;
+        document.getElementById('num2').value = (Math.round(largura)) + 10;
         document.getElementById('num3').value = espessura.toFixed(2); 
 
         // Troca o nosso texto customizado e muda a cor para verde
@@ -1078,8 +1078,8 @@ inputJSON.addEventListener('change', function(evento) {
             }
 
             // 3. Preenche as Medidas
-            document.getElementById('num1').value = Math.round(dados.comprimento);
-            document.getElementById('num2').value = Math.round(dados.largura);
+            document.getElementById('num1').value = (Math.round(dados.comprimento)) + 10;
+            document.getElementById('num2').value = (Math.round(dados.largura)) + 10;
             document.getElementById('num3').value = dados.espessura.toFixed(2);
             
             // 4. Feedback visual
