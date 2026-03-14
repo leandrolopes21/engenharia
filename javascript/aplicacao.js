@@ -217,10 +217,10 @@ function criarNovaSectionChapa() {
     busca.setAttribute('oninput', 'this.value = this.value.toUpperCase()');
     busca.focus();
 
-    const botaoBuscar = document.createElement('button'); // Inserir este elemento dentro da div com id=headerChapas
-    botaoBuscar.textContent = 'Buscar';
-    botaoBuscar.setAttribute('type', 'submit');
-    botaoBuscar.setAttribute('id', 'btn-buscar');
+    // const botaoBuscar = document.createElement('button'); // Inserir este elemento dentro da div com id=headerChapas
+    // botaoBuscar.textContent = 'Buscar';
+    // botaoBuscar.setAttribute('type', 'submit');
+    // botaoBuscar.setAttribute('id', 'btn-buscar');
 
     const botaoLimpaBusca = document.createElement('button'); // Inserir este elemento dentro da div com id=headerChapas
     botaoLimpaBusca.textContent = 'Limpar';
@@ -234,7 +234,7 @@ function criarNovaSectionChapa() {
     novaSection.appendChild(conteiner1);
     conteiner.appendChild(titulo);
     conteiner.appendChild(busca);
-    conteiner.appendChild(botaoBuscar);
+    // conteiner.appendChild(botaoBuscar);
     conteiner.appendChild(botaoLimpaBusca);
     estruturaPrincipal.appendChild(novaSection);
 
@@ -315,21 +315,35 @@ function criarNovaSectionChapa() {
     renderizarLinhas(chapas);
 
     // Adiciona o evento de clique ao botão de busca
-    botaoBuscar.addEventListener('click', () => {
-        if(busca.value != '') {
-            const termoBusca = busca.value.toUpperCase();
-            const chapasFiltradas = chapas.filter(chapa =>
+    // botaoBuscar.addEventListener('click', () => {
+    //     if(busca.value != '') {
+    //         const termoBusca = busca.value.toUpperCase();
+    //         const chapasFiltradas = chapas.filter(chapa =>
+    //         chapa.descricao.toUpperCase().includes(termoBusca)
+    //     );
+    //     renderizarLinhas(chapasFiltradas, busca.value);
+    //     } else {
+    //         alert('Digite um valor para busca!');
+    //     }
+    // });
+
+    busca.addEventListener('input', () => {
+        const termoBusca = busca.value.toUpperCase();
+        const chapasFiltradas = chapas.filter(chapa =>
             chapa.descricao.toUpperCase().includes(termoBusca)
         );
         renderizarLinhas(chapasFiltradas, busca.value);
-        } else {
-            alert('Digite um valor para busca!');
-        }
     });
 
+    // Adiciona o evento de clique ao botão de limpar
     botaoLimpaBusca.addEventListener('click', () => {
-        renderizarLinhas(chapas);
-        busca.value = '';
+        if(busca.value != '') {
+            renderizarLinhas(chapas);
+            busca.value = '';
+        } else {
+            alert('Sem dados para limpar!');
+        }        
+        busca.focus();        
     });
 
     // Adiciona a tabela completa à div 'principal'
@@ -444,10 +458,10 @@ function criarNovaSectionTinta() {
     busca.setAttribute('oninput', 'this.value = this.value.toUpperCase()');
     busca.focus();
 
-    const botaoBuscar = document.createElement('button'); // Inserir este elemento dentro da div com id=headerTintas
-    botaoBuscar.textContent = 'Buscar';
-    botaoBuscar.setAttribute('type', 'submit');
-    botaoBuscar.setAttribute('id', 'btn-buscar');
+    // const botaoBuscar = document.createElement('button'); // Inserir este elemento dentro da div com id=headerTintas
+    // botaoBuscar.textContent = 'Buscar';
+    // botaoBuscar.setAttribute('type', 'submit');
+    // botaoBuscar.setAttribute('id', 'btn-buscar');
 
     const botaoLimpaBusca = document.createElement('button'); // Inserir este elemento dentro da div com id=headerChapas
     botaoLimpaBusca.textContent = 'Limpar';
@@ -461,7 +475,7 @@ function criarNovaSectionTinta() {
     novaSection.appendChild(conteiner1);
     conteiner.appendChild(titulo);
     conteiner.appendChild(busca);
-    conteiner.appendChild(botaoBuscar);
+    // conteiner.appendChild(botaoBuscar);
     conteiner.appendChild(botaoLimpaBusca);
     estruturaPrincipal.appendChild(novaSection);
 
@@ -542,21 +556,35 @@ function criarNovaSectionTinta() {
     renderizarLinhas(tintas);
 
     // Adiciona o evento de clique ao botão de busca
-    botaoBuscar.addEventListener('click', () => {
-        if(busca.value != '') {
-            const termoBusca = busca.value.toUpperCase();
-            const tintasFiltradas = tintas.filter(tinta => 
+    // botaoBuscar.addEventListener('click', () => {
+    //     if(busca.value != '') {
+    //         const termoBusca = busca.value.toUpperCase();
+    //         const tintasFiltradas = tintas.filter(tinta => 
+    //         tinta.descricao.toUpperCase().includes(termoBusca)
+    //     );
+    //     renderizarLinhas(tintasFiltradas, busca.value);
+    //     } else {
+    //         alert('Digite um valor para busca!');
+    //     }        
+    // });
+
+    busca.addEventListener('input', () => {
+        const termoBusca = busca.value.toUpperCase();
+        const tintasFiltradas = tintas.filter(tinta => 
             tinta.descricao.toUpperCase().includes(termoBusca)
         );
-        renderizarLinhas(tintasFiltradas, busca.value);
-        } else {
-            alert('Digite um valor para busca!');
-        }        
+        renderizarLinhas(tintasFiltradas, busca.value);       
     });
 
+    // Adiciona o evento de clique ao botão de limpar
     botaoLimpaBusca.addEventListener('click', () => {
-        renderizarLinhas(tintas);
-        busca.value = '';
+        if(busca.value != '') {
+            renderizarLinhas(tintas);
+            busca.value = '';
+        } else {
+            alert('Sem valor para limpar!');
+        }
+        busca.focus();        
     });
 
     // Adiciona a tabela completa à div 'principal'
